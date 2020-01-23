@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 public class Board {
     private static Square[][] gameState = new Square[8][8];
+
     private static boolean isCheckmate;
     private static Player currentPlayer;
     private static boolean isCurrentlyCheck;
@@ -79,9 +80,9 @@ public class Board {
             currentPlayer = Player.WHITE;
         }
     }
-    public static void handleMove(int[] currentPieceCoordinate, int[] toCurrentCoordinate) {
-        Square currentSquare = gameState[currentPieceCoordinate[0]][currentPieceCoordinate[1]];
-        Square nextSquare = gameState[toCurrentCoordinate[0]][toCurrentCoordinate[1]];
+    public static void handleMove(Coordinate currentPieceCoordinate, Coordinate toCurrentCoordinate) {
+        Square currentSquare = gameState[currentPieceCoordinate.getX()][currentPieceCoordinate.getY()];
+        Square nextSquare = gameState[toCurrentCoordinate.getY()][toCurrentCoordinate.getX()];
         nextSquare.put(currentSquare.getPiece());
         currentSquare.clear();
     }

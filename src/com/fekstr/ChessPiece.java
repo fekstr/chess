@@ -4,17 +4,22 @@ import java.util.ArrayList;
 
 public abstract class ChessPiece {
     Player color;
-    int[] coordinates = new int[2];
+    Coordinate coordinate;
+
+    ChessPiece(Player color, Coordinate coordinate) {
+        this.color = color;
+        this.coordinate = coordinate;
+    }
 
     // Return coordinates to all valid squares
-    abstract ArrayList<int[]> checkValidMoves();
+    abstract ArrayList<int[]> getValidMoves();
 
     // Return true if move is valid and false otherwise
-    abstract boolean isValidMove(int[] toCoordinates);
+    abstract boolean isValidMove(Coordinate toCoordinates);
 
-    void makeMove(int[] toCoordinates) {
+    void makeMove(Coordinate toCoordinates) {
         if (isValidMove(toCoordinates)) {
-            // Board.makeMove(coordinates, toCoordinates)
+             Board.handleMove(coordinate, toCoordinates);
         } else {
             // BoardUI.setLabel("Invalid move")
         }
