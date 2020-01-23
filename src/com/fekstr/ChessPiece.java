@@ -27,4 +27,7 @@ public abstract class ChessPiece {
 
     // Return squares threatened by piece
     abstract ArrayList<int[]> getThreatenedSquares();
+    public String toString() {
+        return "K";
+    }
 }

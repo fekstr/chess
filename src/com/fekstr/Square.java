@@ -31,4 +31,13 @@ public class Square {
     public void setThreatened(boolean _isThreatened) {
         isThreatened = _isThreatened;
     }
+
+    public String toString() {
+        if (isEmpty()) {
+            return "_";
+        } else {
+            return piece.toString();
+        }
+
+    }
 }

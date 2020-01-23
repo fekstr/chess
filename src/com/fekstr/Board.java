@@ -3,6 +3,7 @@ package com.fekstr;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Alfred on 2020-01-23.
@@ -13,6 +14,7 @@ public class Board {
     private static boolean isCheckmate;
     private static Player currentPlayer;
     private static boolean isCurrentlyCheck;
+
 
     public Board() {
         for (int i = 0; i < 8; i++) {
@@ -92,5 +94,13 @@ public class Board {
 
     public static boolean checkIfSquareIsEmpty(Coordinate coordinates) {
         return getSquare(coordinates.getX(), coordinates.getY()).isEmpty();
+    }
+
+    public static void main(String[] args) {
+        Board board = new Board();
+        System.out.println("Tudilu");
+        System.out.println(Arrays.deepToString(gameState)
+                .replace("],","\n").replace(",","\t| ")
+                .replaceAll("[\\[\\]]", " "));
     }
 }
