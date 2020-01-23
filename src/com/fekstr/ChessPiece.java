@@ -16,16 +16,16 @@ public abstract class ChessPiece {
     abstract ArrayList<Coordinate> getValidMoves();
 
     // Return true if move is valid and false otherwise
-    abstract boolean isValidMove(int[] toCoordinates);
+    abstract boolean isValidMove(Coordinate toCoordinates);
 
     void showValidMoves(Coordinate toCoordinate) {
         ArrayList<Coordinate> validMoves = getValidMoves();
         // BoardUI.displayValidMoves(validMoves);
     }
 
-    void makeMove(int[] toCoordinates) {
-        if (isValidMove(toCoordinates)) {
-             Board.handleMove(coordinate, toCoordinates);
+    void makeMove(Coordinate toCoordinate) {
+        if (isValidMove(toCoordinate)) {
+             Board.handleMove(coordinate, toCoordinate);
         } else {
             // BoardUI.setLabel("Invalid move")
         }
@@ -33,4 +33,7 @@ public abstract class ChessPiece {
 
     // Return squares threatened by piece
     abstract ArrayList<int[]> getThreatenedSquares();
+    public String toString() {
+        return "K";
+    }
 }
