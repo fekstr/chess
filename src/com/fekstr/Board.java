@@ -1,5 +1,7 @@
 package com.fekstr;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 import java.util.ArrayList;
 
 /**
@@ -80,10 +82,15 @@ public class Board {
             currentPlayer = Player.WHITE;
         }
     }
+
     public static void handleMove(Coordinate currentPieceCoordinate, Coordinate toCurrentCoordinate) {
         Square currentSquare = gameState[currentPieceCoordinate.getX()][currentPieceCoordinate.getY()];
         Square nextSquare = gameState[toCurrentCoordinate.getY()][toCurrentCoordinate.getX()];
         nextSquare.put(currentSquare.getPiece());
         currentSquare.clear();
+    }
+
+    public static boolean checkIfSquareIsEmpty(Coordinate coordinates) {
+        return getSquare(coordinates.getX(), coordinates.getY()).isEmpty();
     }
 }
