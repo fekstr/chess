@@ -3,7 +3,7 @@ package com.fekstr;
 import java.util.ArrayList;
 
 public abstract class ChessPiece {
-    String color;
+    Player color;
     int[] coordinates = new int[2];
 
     // Return coordinates to all valid squares
@@ -14,7 +14,7 @@ public abstract class ChessPiece {
 
     void makeMove(int[] toCoordinates) {
         if (isValidMove(toCoordinates)) {
-            // Board.makeMove(coordinates, toCoordinates)
+             Board.handleMove(coordinates, toCoordinates);
         } else {
             // BoardUI.setLabel("Invalid move")
         }
