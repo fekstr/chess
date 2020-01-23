@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public abstract class ChessPiece {
     Player color;
     Coordinate coordinate;
+    ArrayList<Coordinate> validMoves;
 
     ChessPiece(Player color, Coordinate coordinate) {
         this.color = color;
@@ -12,10 +13,15 @@ public abstract class ChessPiece {
     }
 
     // Return coordinates to all valid squares
-    abstract ArrayList<int[]> getValidMoves();
+    abstract ArrayList<Coordinate> getValidMoves();
 
     // Return true if move is valid and false otherwise
     abstract boolean isValidMove(int[] toCoordinates);
+
+    void showValidMoves(Coordinate toCoordinate) {
+        ArrayList<Coordinate> validMoves = getValidMoves();
+        // BoardUI.displayValidMoves(validMoves);
+    }
 
     void makeMove(int[] toCoordinates) {
         if (isValidMove(toCoordinates)) {
