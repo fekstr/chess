@@ -8,9 +8,8 @@ public class Pawn extends ChessPiece {
         super(color, coordinate);
     }
 
-    ArrayList<Coordinate> getValidMoves() {
+    void computeValidMoves() {
         ArrayList<Coordinate> validMoves = new ArrayList<>();
-
         ArrayList<Coordinate> movesToTest = new ArrayList<>();
 
         movesToTest.add(new Coordinate(this.coordinate.getX(), this.coordinate.getY() + 1));
@@ -19,12 +18,19 @@ public class Pawn extends ChessPiece {
         }
 
         for (Coordinate move: movesToTest) {
-            if (Board.checkIfSquareIsEmpty(move)) {
+            if (!Board.squareContainsOwnPiece(move) && !Board.willCreateCheck) {
                 validMoves.add(move);
             }
         }
 
         this.validMoves = validMoves;
-
     }
+
+    boolean isValidMove(Coordinate toCoordinate) {
+        return validMoves.contains(toCoordinate);
+    }
+
+    ArrayList<Coordinate> getThreatenedSquares() {}
+
+
 }
