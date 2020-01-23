@@ -12,13 +12,23 @@ public class Pawn extends ChessPiece {
         ArrayList<Coordinate> validMoves = new ArrayList<>();
         ArrayList<Coordinate> movesToTest = new ArrayList<>();
 
-        movesToTest.add(new Coordinate(this.coordinate.getX(), this.coordinate.getY() + 1));
-        if (this.coordinate.getY() == 1) {
-            movesToTest.add(new Coordinate(this.coordinate.getX(), this.coordinate.getY() + 2));
+        movesToTest.add(new Coordinate(this.coordinate.getI() + 1, this.coordinate.getJ()));
+
+        if (Board.squareContainsEnemyPiece(new Coordinate(this.coordinate.getI() + 1, this.coordinate.getJ() + 1)))
+            movesToTest.add(new Coordinate(this.coordinate.getI() + 1, this.coordinate.getJ() + 1));
+
+        if (Board.squareContainsEnemyPiece(new Coordinate(this.coordinate.getI() + 1, this.coordinate.getJ() - 1)))
+            movesToTest.add(new Coordinate(this.coordinate.getI() + 1, this.coordinate.getJ() - 1));
+
+        if (this.coordinate.getI() == 1) {
+            movesToTest.add(new Coordinate(this.coordinate.getI() + 2, this.coordinate.getJ()));
         }
 
         for (Coordinate move: movesToTest) {
-            if (!Board.squareContainsOwnPiece(move) && !Board.willCreateCheck) {
+            if (!Board.isOutsideBoard(move)
+                    && !Board.squareContainsOwnPiece(move)
+                    && !Board.willCreateCheck(this.coordinate, move)
+                ) {
                 validMoves.add(move);
             }
         }
@@ -30,7 +40,9 @@ public class Pawn extends ChessPiece {
         return validMoves.contains(toCoordinate);
     }
 
-    ArrayList<Coordinate> getThreatenedSquares() {}
+    ArrayList<Coordinate> getThreatenedSquares() {
+
+    }
 
 
 }
