@@ -24,10 +24,14 @@ public class Board {
         isCheckmate = false;
         isCurrentlyCheck = false;
         //TODO: Place pieces correctly
+        for (int i = 0; i < 8; i++) {
+            Square currentSquare = getSquare(0, i);
+            currentSquare.put(new Pawn(Player.BLACK, new Coordinate(i, 0)));
+        }
     }
 
-    private static Square getSquare(int col, int row) {
-        return gameState[col][row];
+    private static Square getSquare(int row, int col) {
+        return gameState[row][col];
     }
 
     public static void getThreatenedSquares() {
@@ -60,7 +64,7 @@ public class Board {
         // find King and see if he is on a threathend square
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                Square currentSquare = getSquare(i,j);
+                Square currentSquare = getSquare(j,i);
                 ChessPiece currentPiece = currentSquare.getPiece();
                 //TODO: Make King Piece
                 /*
@@ -94,20 +98,24 @@ public class Board {
         return getSquare(coordinates.getX(), coordinates.getY()).isEmpty();
     }
 
-    static private void flipVertically() {
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8/2; y++) {
-                Square tmp = getSquare(x, 8 - y - 1);
-                gameState[x][8 - y - 1] = getSquare(x, y);
+    public static void flipHorizontally() {
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8/2; x++) {
+                Square tmp = getSquare(8-x-1, y);
+                getSquare(x, y).setCoordinatesOfPiece(new Coordinate(8-x-1, y));
+                gameState[8-x-1][y] = getSquare(x, y);
+                tmp.setCoordinatesOfPiece(new Coordinate(x,y));
                 gameState[x][y] = tmp;
             }
         }
     }
 
+
     public static void printBoard() {
         System.out.println(Arrays.deepToString(gameState)
                 .replace("],","\n").replace(",","\t| ")
                 .replaceAll("[\\[\\]]", " "));
+        System.out.println("\n");
     }
     public static void main(String[] args) {
         Board board = new Board();

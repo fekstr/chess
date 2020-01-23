@@ -32,9 +32,16 @@ public class Square {
         isThreatened = _isThreatened;
     }
 
+    public void setCoordinatesOfPiece(Coordinate coordinates) {
+        if (!isEmpty()) {
+            piece.coordinate.setX(coordinates.getX());
+            piece.coordinate.setY(coordinates.getY());
+        }
+    }
+
     public String toString() {
         if (isEmpty()) {
-            return "_";
+            return "_  ";
         } else {
             return piece.toString();
         }

@@ -25,6 +25,20 @@ public class Pawn extends ChessPiece {
         }
 
         this.validMoves = validMoves;
+        return null;
+    }
 
+    void showValidMoves(Coordinate toCoordinate) {}
+
+    public boolean isValidMove(Coordinate toCoordinates) {
+        return false;
+    }
+
+    public ArrayList<int[]> getThreatenedSquares() {
+        return null;
+    }
+
+    public String toString() {
+        return "P " + coordinate.getX() + coordinate.getY();
     }
 }
