@@ -1,7 +1,5 @@
 package com.fekstr;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -96,11 +94,25 @@ public class Board {
         return getSquare(coordinates.getX(), coordinates.getY()).isEmpty();
     }
 
-    public static void main(String[] args) {
-        Board board = new Board();
-        System.out.println("Tudilu");
+    static private void flipVertically() {
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8/2; y++) {
+                Square tmp = getSquare(x, 8 - y - 1);
+                gameState[x][8 - y - 1] = getSquare(x, y);
+                gameState[x][y] = tmp;
+            }
+        }
+    }
+
+    public static void printBoard() {
         System.out.println(Arrays.deepToString(gameState)
                 .replace("],","\n").replace(",","\t| ")
                 .replaceAll("[\\[\\]]", " "));
+    }
+    public static void main(String[] args) {
+        Board board = new Board();
+        System.out.println("Tudilu");
+        printBoard();
+
     }
 }
