@@ -23,4 +23,12 @@ public class Coordinate {
     public void setY(int y) {
         this.y = y;
     }
+
+    public boolean equals(Coordinate c) {
+        if (this.x == c.x && this.y == c.y) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

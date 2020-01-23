@@ -41,9 +41,9 @@ public class Board {
                 ChessPiece currentPiece = currentSquare.getPiece();
                 // only get threatening squares if they are threatened by other player
                 if (currentPiece.color != currentPlayer) {
-                    ArrayList<int[]> listOfThreatenedSquares = currentPiece.getThreatenedSquares();
-                    for (int[] coordinate : listOfThreatenedSquares) {
-                        getSquare(coordinate[0], coordinate[1]).setThreatened(true);
+                    ArrayList<Coordinate> listOfThreatenedSquares = currentPiece.getThreatenedSquares();
+                    for (Coordinate coordinate : listOfThreatenedSquares) {
+                        getSquare(coordinate.getY(), coordinate.getX()).setThreatened(true);
                     }
                 }
             }
@@ -58,6 +58,15 @@ public class Board {
             }
         }
         getThreatenedSquares();
+    }
+
+    public static boolean willCreateCheck(Coordinate currentCoordinate, Coordinate move) {
+        ChessPiece pieceOnMoveSquare = getSquare(move.getY(), move.getX()).getPiece();
+        handleMove(currentCoordinate, move);
+        getThreatenedSquares();
+        boolean isChecked =  isCheck();
+        revertHandleMove(currentCoordinate, move, pieceOnMoveSquare);
+        return isChecked;
     }
 
     public static boolean isCheck() {
@@ -94,8 +103,30 @@ public class Board {
         currentSquare.clear();
     }
 
+    public static void revertHandleMove(Coordinate currentPieceCoordinate, Coordinate toCurrentCoordinate, ChessPiece moveSquarePiece) {
+        Square currentSquare = getSquare(currentPieceCoordinate.getY(), currentPieceCoordinate.getX());
+        Square nextSquare = getSquare(toCurrentCoordinate.getY(), toCurrentCoordinate.getX());
+        currentSquare.put(nextSquare.getPiece());
+        nextSquare.put(moveSquarePiece);
+    }
+
+    public static boolean isOutsideBoard(Coordinate coordinate) {
+        coordinate
+    }
+
+
     public static boolean checkIfSquareIsEmpty(Coordinate coordinates) {
         return getSquare(coordinates.getX(), coordinates.getY()).isEmpty();
+    }
+
+    public static boolean squareContainsOwnPiece(Coordinate move) {
+        Square currentSquare = getSquare(move.getY(), move.getX());
+        if (currentSquare.isEmpty()) {
+            return false;
+        } else {
+            return currentSquare.getPiece().color == currentPlayer;
+        }
+
     }
 
     public static void flipHorizontally() {
