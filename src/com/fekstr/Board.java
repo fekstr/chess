@@ -43,7 +43,7 @@ public class Board {
                 if (currentPiece.color != currentPlayer) {
                     ArrayList<Coordinate> listOfThreatenedSquares = currentPiece.getThreatenedSquares();
                     for (Coordinate coordinate : listOfThreatenedSquares) {
-                        getSquare(coordinate.getY(), coordinate.getX()).setThreatened(true);
+                        getSquare(coordinate.getI(), coordinate.getJ()).setThreatened(true);
                     }
                 }
             }
@@ -61,7 +61,7 @@ public class Board {
     }
 
     public static boolean willCreateCheck(Coordinate currentCoordinate, Coordinate move) {
-        ChessPiece pieceOnMoveSquare = getSquare(move.getY(), move.getX()).getPiece();
+        ChessPiece pieceOnMoveSquare = getSquare(move.getI(), move.getJ()).getPiece();
         handleMove(currentCoordinate, move);
         getThreatenedSquares();
         boolean isChecked =  isCheck();
@@ -97,30 +97,30 @@ public class Board {
     }
 
     public static void handleMove(Coordinate currentPieceCoordinate, Coordinate toCurrentCoordinate) {
-        Square currentSquare = gameState[currentPieceCoordinate.getX()][currentPieceCoordinate.getY()];
-        Square nextSquare = gameState[toCurrentCoordinate.getY()][toCurrentCoordinate.getX()];
+        Square currentSquare = gameState[currentPieceCoordinate.getJ()][currentPieceCoordinate.getI()];
+        Square nextSquare = gameState[toCurrentCoordinate.getI()][toCurrentCoordinate.getJ()];
         nextSquare.put(currentSquare.getPiece());
         currentSquare.clear();
     }
 
     public static void revertHandleMove(Coordinate currentPieceCoordinate, Coordinate toCurrentCoordinate, ChessPiece moveSquarePiece) {
-        Square currentSquare = getSquare(currentPieceCoordinate.getY(), currentPieceCoordinate.getX());
-        Square nextSquare = getSquare(toCurrentCoordinate.getY(), toCurrentCoordinate.getX());
+        Square currentSquare = getSquare(currentPieceCoordinate.getI(), currentPieceCoordinate.getJ());
+        Square nextSquare = getSquare(toCurrentCoordinate.getI(), toCurrentCoordinate.getJ());
         currentSquare.put(nextSquare.getPiece());
         nextSquare.put(moveSquarePiece);
     }
 
     public static boolean isOutsideBoard(Coordinate coordinate) {
-        coordinate
+        return coordinate.getI() >= 8 ||coordinate.getJ() >= 8;
     }
 
 
     public static boolean checkIfSquareIsEmpty(Coordinate coordinates) {
-        return getSquare(coordinates.getX(), coordinates.getY()).isEmpty();
+        return getSquare(coordinates.getJ(), coordinates.getI()).isEmpty();
     }
 
     public static boolean squareContainsOwnPiece(Coordinate move) {
-        Square currentSquare = getSquare(move.getY(), move.getX());
+        Square currentSquare = getSquare(move.getI(), move.getJ());
         if (currentSquare.isEmpty()) {
             return false;
         } else {
@@ -128,6 +128,17 @@ public class Board {
         }
 
     }
+
+    public static boolean squareContainsEnemyPiece(Coordinate move) {
+        Square currentSquare = getSquare(move.getI(), move.getJ());
+        if (currentSquare.isEmpty()) {
+            return false;
+        } else {
+            return currentSquare.getPiece().color != currentPlayer;
+        }
+
+    }
+
 
     public static void flipHorizontally() {
         for (int y = 0; y < 8; y++) {

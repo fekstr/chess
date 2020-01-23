@@ -1,31 +1,31 @@
 package com.fekstr;
 
 public class Coordinate {
-    private int x, y;
+    private int i, j;
 
-    Coordinate(int x, int y) {
-        this.x = x;
-        this.y = y;
+    Coordinate(int i, int j) {
+        this.i = i;
+        this.j = j;
     }
 
-    public int getX() {
-        return x;
+    public int getI() {
+        return i;
     }
 
-    public int getY() {
-        return y;
+    public int getJ() {
+        return j;
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public void setI(int i) {
+        this.i = i;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public void setJ(int j) {
+        this.j = j;
     }
 
     public boolean equals(Coordinate c) {
-        if (this.x == c.x && this.y == c.y) {
+        if (this.i == c.i && this.j == c.j) {
             return true;
         } else {
             return false;

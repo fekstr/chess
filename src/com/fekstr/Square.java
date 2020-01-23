@@ -34,8 +34,8 @@ public class Square {
 
     public void setCoordinatesOfPiece(Coordinate coordinates) {
         if (!isEmpty()) {
-            piece.coordinate.setX(coordinates.getX());
-            piece.coordinate.setY(coordinates.getY());
+            piece.coordinate.setJ(coordinates.getJ());
+            piece.coordinate.setI(coordinates.getI());
         }
     }
 
