@@ -27,4 +27,8 @@ public class Square {
     public ChessPiece getPiece() {
         return piece;
     }
+
+    public void setThreatened(boolean _isThreatened) {
+        isThreatened = _isThreatened;
+    }
 }

@@ -3,7 +3,7 @@ package com.fekstr;
 import java.util.ArrayList;
 
 public abstract class ChessPiece {
-    String color;
+    Player color;
     int[] coordinates = new int[2];
 
     // Return coordinates to all valid squares
