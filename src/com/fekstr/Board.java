@@ -156,7 +156,7 @@ public class Board {
     }
 
     public static String handleMove(Coordinate currentPieceCoordinate, Coordinate toCurrentCoordinate) {
-        String status = "";
+        String status = "ok move";
 
         // set current Square
         Square currentSquare = gameState[currentPieceCoordinate.getX()][currentPieceCoordinate.getY()];
@@ -174,7 +174,6 @@ public class Board {
         if (currentSquare.getPiece().getType() == Piece.PAWN && toCurrentCoordinate.getY() == 7) {
             // Promotion
             nextSquare.put(new Queen(currentPlayer, nextSquare));
-            status = playerString + " promoted a pawn to queen";
         } else {
             nextSquare.put(currentSquare.getPiece());
         }
@@ -185,7 +184,6 @@ public class Board {
         getThreatenedSquares();
 
 
-        System.out.println(status);
         return status;
     }
 
@@ -194,11 +192,13 @@ public class Board {
 
         String status = "";
 
-        handleMove(currentPieceCoordinate, toCurrentCoordinate);
+        status = handleMove(currentPieceCoordinate, toCurrentCoordinate);
 
         checkIfCheckmate();
         if (isCheckmate) {
             status = "Game over";
+        } else if (isCheck()){
+            status = "CHECK";
         }
 
         System.out.println(status);

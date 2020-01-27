@@ -50,7 +50,7 @@ public abstract class ChessPiece {
 
     public ArrayList<Coordinate> getValidMoves() {
         computeValidMoves();
-        System.out.println(validMoves);
+//        System.out.println(validMoves);
         return validMoves;
     }
 }

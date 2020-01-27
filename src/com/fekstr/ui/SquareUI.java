@@ -56,13 +56,15 @@ public class SquareUI extends JButton implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
 
+        String status = "no status";
+
         // Click on piece or highlighted square
         if(!this.square.isEmpty() || this.isHighlighted()) {
 
             Coordinate c = square.getCoordinate();
 
 
-            // A piece has previously been selected
+            // No piece has been selected
             if(!activePlay && Board.getCurrentPlayer() == this.square.getPlayer()) {
                 activePlay = true;
                 ArrayList<Coordinate> validMoves = square.getValidMoves();
@@ -72,19 +74,14 @@ public class SquareUI extends JButton implements ActionListener {
                     System.out.println("No valid moves");
                 } else {
                     BoardUI.highlightValidMoves(validMoves);
-                    for (Coordinate cc : validMoves) {
-                        System.out.println(cc);
-                    }
-
                     BoardUI.setCurrentCoordinate(c);
                 }
 
             }
 
-            // No piece has been selected
+            // A piece has previously been selected
             else if (activePlay && BoardUI.getCurrentCoordinate() != null && this.isHighlighted()) {
-                System.out.println("Triggered");
-                Board.makeMove(BoardUI.getCurrentCoordinate(), c);
+                status = Board.makeMove(BoardUI.getCurrentCoordinate(), c);
                 BoardUI.setCurrentCoordinate(null);
 
                 BoardUI.renderBoard();
@@ -105,6 +102,9 @@ public class SquareUI extends JButton implements ActionListener {
             BoardUI.resetHighlight();
 
         }
+
+        System.out.println(status);
+        BoardUI.setStatus(status);
 
 //        System.out.println(square.getCoordinate());
 //        System.out.println(square.getPiece());

@@ -13,6 +13,7 @@ public class BoardUI extends JFrame {
     private JPanel mainPanel;
     private static JPanel chessPanel;
     private JPanel controlPanel;
+    private static JLabel statusLabel = new JLabel("Status: ");
     private Board board;
     private static SquareUI[][] uiSquares = new SquareUI[8][8];
 
@@ -62,7 +63,7 @@ public class BoardUI extends JFrame {
 
         controlPanel.add(new JButton("Start"));
         controlPanel.add(new JButton("XXXXX"));
-        controlPanel.add(new JLabel("Status: XX"));
+        controlPanel.add(statusLabel);
 
         controlPanel.setSize(400,50);
 
@@ -77,6 +78,10 @@ public class BoardUI extends JFrame {
 
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    public static void setStatus(String status) {
+        BoardUI.statusLabel.setText("Status: " + status);
     }
 
     private static void clearBoard() {
