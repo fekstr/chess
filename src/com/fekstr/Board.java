@@ -74,9 +74,6 @@ public class Board {
         currentSquare = getSquare(0, 0);
         currentSquare.put(new Rook(forPlayer, currentSquare));
 
-
-
-
     }
 
 
@@ -124,6 +121,8 @@ public class Board {
     public static boolean willCreateCheck(Coordinate currentCoordinate, Coordinate move) {
         ChessPiece pieceOnMoveSquare = getSquare(move.getX(), move.getY()).getPiece();
         handleMove(currentCoordinate, move);
+        switchPlayer();
+        flip();
         getThreatenedSquares();
         boolean isChecked =  isCheck();
         revertHandleMove(currentCoordinate, move, pieceOnMoveSquare);

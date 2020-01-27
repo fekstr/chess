@@ -29,14 +29,14 @@ public class Pawn extends ChessPiece {
             movesToTest.add(t3);
 
         // Step forward and left
-        Coordinate t4 = new Coordinate(coordinate.getX() + 1, coordinate.getY() - 1);
+        Coordinate t4 = new Coordinate(coordinate.getX() - 1, coordinate.getY() + 1);
         if (!Board.isOutsideBoard(t4) && Board.squareContainsEnemyPiece(t4))
             movesToTest.add(t4);
 
 
         for (Coordinate move: movesToTest) {
             //if (!Board.squareContainsOwnPiece(move) && !Board.willCreateCheck(coordinate, move))
-            if (!Board.squareContainsOwnPiece(move))
+            if (!Board.squareContainsOwnPiece(move) && !Board.willCreateCheck(coordinate, move))
                 validMoves.add(move);
         }
 
