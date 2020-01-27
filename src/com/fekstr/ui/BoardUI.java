@@ -1,4 +1,6 @@
 package com.fekstr.ui;
+import com.fekstr.Board;
+
 import javax.swing.*;
 import java.awt.*;
 

@@ -36,7 +36,9 @@ public class Pawn extends ChessPiece {
         this.validMoves = validMoves;
     }
 
-    void showValidMoves(Coordinate toCoordinate) {}
+    void showValidMoves(Coordinate toCoordinate) {
+        // BoardUI.highlightSquares(validMoves)
+    }
 
     boolean isValidMove(Coordinate toCoordinate) {
         return validMoves.contains(toCoordinate);
@@ -53,8 +55,18 @@ public class Pawn extends ChessPiece {
 
 
     ArrayList<Coordinate> getThreatenedSquares() {
-            return null;
+        ArrayList<Coordinate> threatenedSquares = new ArrayList<>();
+        ArrayList<Coordinate> squaresToTest = new ArrayList<>();
 
+        squaresToTest.add(new Coordinate(coordinate.getI() + 1, coordinate.getJ() + 1));
+        squaresToTest.add(new Coordinate(coordinate.getI() + 1, coordinate.getJ() - 1));
+
+        for (Coordinate c: squaresToTest) {
+            if (!Board.isOutsideBoard(c) && !Board.squareContainsOwnPiece(c))
+                threatenedSquares.add(c);
+        }
+
+        return threatenedSquares;
     }
 
 
