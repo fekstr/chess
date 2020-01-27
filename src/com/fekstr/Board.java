@@ -16,6 +16,7 @@ public class Board {
 
 
     public Board() {
+
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 gameState[x][y] = new Square();
@@ -35,8 +36,9 @@ public class Board {
         getThreatenedSquares();
     }
 
-    private static Square getSquare(int x, int y) {
+    public static Square getSquare(int x, int y) {
         return gameState[x][y];
+
     }
 
     public static void getThreatenedSquares() {
@@ -49,7 +51,6 @@ public class Board {
                     ArrayList<Coordinate> listOfThreatenedSquares = currentPiece.getThreatenedSquares();
                     System.out.println(listOfThreatenedSquares);
                     for (Coordinate coordinate : listOfThreatenedSquares) {
-
                         getSquare(coordinate.getX(), coordinate.getY()).setThreatened(true);
                     }
                 }
@@ -61,7 +62,7 @@ public class Board {
         // Resets squares
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                getSquare(i, j).setThreatened(false);
+                //getSquare(i, j).setThreatened(false);
             }
         }
         getThreatenedSquares();
@@ -144,7 +145,6 @@ public class Board {
 
     }
 
-
     public static void flipHorizontally() {
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8/2; x++) {
@@ -178,4 +178,5 @@ public class Board {
 
 
     }
+
 }

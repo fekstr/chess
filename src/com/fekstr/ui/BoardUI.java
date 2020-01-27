@@ -1,15 +1,17 @@
 package com.fekstr.ui;
 import com.fekstr.Board;
+import com.fekstr.Square;
+
 
 import javax.swing.*;
 import java.awt.*;
 
 public class BoardUI extends JFrame {
-    //private ArrayList board;
 
     private JPanel mainPanel;
     private JPanel chessPanel;
     private JPanel controlPanel;
+    private Board gameState;
 
 
     BoardUI() {
@@ -17,6 +19,8 @@ public class BoardUI extends JFrame {
     }
 
     private final void initialize() {
+        gameState = new Board();
+
         System.out.println("Init..");
         mainPanel = new JPanel();
         chessPanel = new JPanel();
@@ -41,16 +45,16 @@ public class BoardUI extends JFrame {
 
 
         Color clr;
-        for (int i = 1; i < 9; i++) {
-            for (int j = 1; j < 9; j++) {
-                if ((j + i) % 2 == 0) {
+        for (int y = 7; y >= 0; y--) {
+            for (int x = 0; x < 8; x++) {
+                if ((x + y) % 2 == 0) {
                     clr = Color.WHITE;
                 } else {
                     clr = Color.BLACK;
                 }
-                JButton square = new Square(clr);
-
-                chessPanel.add(square);
+                Square square = gameState.getSquare(x,y);
+                SquareUI squareui = new SquareUI(square,clr);
+                chessPanel.add(squareui);
 
             }
         }
