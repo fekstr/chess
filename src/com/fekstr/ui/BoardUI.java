@@ -11,13 +11,23 @@ import java.util.ArrayList;
 public class BoardUI extends JFrame {
 
     private JPanel mainPanel;
-    private JPanel chessPanel;
+    private static JPanel chessPanel;
     private JPanel controlPanel;
     private Board board;
     private static SquareUI[][] uiSquares = new SquareUI[8][8];
 
+    private static Coordinate currentCoordinate = null;
+
     BoardUI() {
         initialize();
+    }
+
+    public static void setCurrentCoordinate(Coordinate coordinate) {
+        currentCoordinate = coordinate;
+    }
+
+    public static Coordinate getCurrentCoordinate() {
+        return currentCoordinate;
     }
 
     private final void initialize() {
@@ -45,21 +55,7 @@ public class BoardUI extends JFrame {
         c.gridy = 0;
         mainPanel.add(chessPanel,c);
 
-        Color clr;
-        for (int y = 7; y >= 0; y--) {
-            for (int x = 0; x < 8; x++) {
-                if ((x + y) % 2 == 0) {
-                    clr = Color.decode("#D18B47");
-                } else {
-                    clr = Color.decode("#FFCE9E");
-                }
-                Square square = board.getSquare(x,y);
-                SquareUI squareui = new SquareUI(square,clr);
-                uiSquares[x][y] = squareui;
-                chessPanel.add(squareui);
-
-            }
-        }
+        renderBoard();
 
         c.gridy = 1;
         c.weighty = 0.05;
@@ -83,8 +79,29 @@ public class BoardUI extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    public void renderBoard() {
+    private static void clearBoard() {
+        chessPanel.removeAll();
+        chessPanel.revalidate();
+        chessPanel.repaint();
+    }
 
+    public static void renderBoard() {
+        clearBoard();
+        Color clr;
+        for (int y = 7; y >= 0; y--) {
+            for (int x = 0; x < 8; x++) {
+                if ((x + y) % 2 == 0) {
+                    clr = Color.decode("#D18B47");
+                } else {
+                    clr = Color.decode("#FFCE9E");
+                }
+                Square square = Board.getSquare(x, y);
+                SquareUI squareui = new SquareUI(square,clr);
+                uiSquares[x][y] = squareui;
+                chessPanel.add(squareui);
+
+            }
+        }
     }
 
     private static SquareUI getUISquare(Coordinate coordinate) {

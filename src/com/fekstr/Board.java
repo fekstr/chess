@@ -66,7 +66,7 @@ public class Board {
 
     }
 
-    public static void getThreatenedSquares() {
+    private static void getThreatenedSquares() {
         flip();
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
@@ -133,13 +133,15 @@ public class Board {
     }
 
     public static void handleMove(Coordinate currentPieceCoordinate, Coordinate toCurrentCoordinate) {
-
         // set current Square
         Square currentSquare = gameState[currentPieceCoordinate.getX()][currentPieceCoordinate.getY()];
         Square nextSquare = gameState[toCurrentCoordinate.getX()][toCurrentCoordinate.getY()];
         nextSquare.put(currentSquare.getPiece());
         currentSquare.clear();
+        switchPlayer();
+        flip();
     }
+
 
     public static void revertHandleMove(Coordinate currentPieceCoordinate, Coordinate toCurrentCoordinate, ChessPiece moveSquarePiece) {
         Square currentSquare = getSquare(currentPieceCoordinate.getX(), currentPieceCoordinate.getY());
