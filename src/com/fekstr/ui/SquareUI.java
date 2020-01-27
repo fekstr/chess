@@ -19,12 +19,15 @@ public class SquareUI extends JButton implements ActionListener {
     private Color backgroundColor;
     private static ArrayList<SquareUI> squareuiList = new ArrayList<SquareUI>();
     private ArrayList<Coordinate> possibleMoves = new ArrayList<Coordinate>();
+    public boolean highlighted;
+    public static boolean activePlay = false;
 
 
     SquareUI(Square square, Color color) {
         this.backgroundColor = color;
         //this.coordinate = coordinate;
         this.square = square;
+        this.highlighted = false;
 
         setBorder(new LineBorder(Color.WHITE, 0));
         setBackground(this.backgroundColor);
@@ -55,14 +58,26 @@ public class SquareUI extends JButton implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        Coordinate c = square.getCoordinate();
-        ArrayList<Coordinate> validMoves = square.getValidMoves();
-        BoardUI.highlightValidMoves(validMoves);
+        if(!this.square.isEmpty() || this.isHighlighted() ) {
 
-        for (Coordinate cc: validMoves) {
-            System.out.println(cc);
+            Coordinate c = square.getCoordinate();
+            if(activePlay && !this.square.isEmpty()) {
+                // ActivePlay and is a piece -> new Play
+                BoardUI.resetHighlight();
+                activePlay = !activePlay;
+            }
+
+            if(!this.isHighlighted() && !activePlay) {
+                activePlay = !activePlay;
+                ArrayList<Coordinate> validMoves = square.getValidMoves();
+                BoardUI.highlightValidMoves(validMoves);
+                for (Coordinate cc : validMoves) {
+                    System.out.println(cc);
+                }
+            }
+
+            System.out.println("that worked");
         }
-
 
 //        System.out.println(square.getCoordinate());
 //        System.out.println(square.getPiece());
@@ -75,8 +90,19 @@ public class SquareUI extends JButton implements ActionListener {
     }
 
     public void highlightGreen() {
+        this.highlighted = !this.highlighted;
         setBackground(Color.GREEN);
+
     }
+
+    public void resetBackgroundColor() {
+        setBackground(this.backgroundColor);
+    }
+
+    public boolean isHighlighted() {
+        return this.highlighted;
+    }
+
 
     private void highlight() {
         if(backgroundColor.equals(Color.WHITE)) {

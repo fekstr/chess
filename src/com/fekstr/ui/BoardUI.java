@@ -98,6 +98,15 @@ public class BoardUI extends JFrame {
         }
     }
 
+    public static void resetHighlight() {
+        for(SquareUI[] s: uiSquares) {
+            for(SquareUI ss: s) {
+                ss.resetBackgroundColor();
+            }
+
+        }
+    }
+
     public static void main(String[] args) {
         BoardUI app = new BoardUI();
     }
