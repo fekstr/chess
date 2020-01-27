@@ -55,6 +55,8 @@ public class SquareUI extends JButton implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
+
+        // Click on piece or highlighted square
         if(!this.square.isEmpty() || this.isHighlighted()) {
 
             Coordinate c = square.getCoordinate();
@@ -90,6 +92,10 @@ public class SquareUI extends JButton implements ActionListener {
 
 
             System.out.println("that worked");
+        } else {
+            activePlay = false;
+            BoardUI.resetHighlight();
+
         }
 
 //        System.out.println(square.getCoordinate());
