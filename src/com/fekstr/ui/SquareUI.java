@@ -81,6 +81,8 @@ public class SquareUI extends JButton implements ActionListener {
         highlight();
 
         //possibleMoves = this.piece.showValidMoves();
+        //System.out.println(possibleMoves);
+
         /*
         for (SquareUI s: squareuiList) {
             for (Coordinate c: possibleMoves) {

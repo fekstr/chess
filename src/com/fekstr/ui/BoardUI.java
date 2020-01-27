@@ -13,16 +13,15 @@ public class BoardUI extends JFrame {
     private JPanel mainPanel;
     private JPanel chessPanel;
     private JPanel controlPanel;
-    private Board gameState;
+    private Board board;
     private static SquareUI[][] uiSquares = new SquareUI[8][8];
-
 
     BoardUI() {
         initialize();
     }
 
     private final void initialize() {
-        gameState = new Board();
+        board = new Board();
 
         System.out.println("Init..");
         mainPanel = new JPanel();
@@ -54,7 +53,7 @@ public class BoardUI extends JFrame {
                 } else {
                     clr = Color.BLACK;
                 }
-                Square square = gameState.getSquare(x,y);
+                Square square = board.getSquare(x,y);
                 SquareUI squareui = new SquareUI(square,clr);
                 uiSquares[x][y] = squareui;
                 chessPanel.add(squareui);
