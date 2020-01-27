@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class King extends ChessPiece {
     King(Player color, Square currentSquare) {
-        super(color, currentSquare);
+        super(color, currentSquare, Piece.KING);
     }
 
     void computeValidMoves() {

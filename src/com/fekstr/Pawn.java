@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Pawn extends ChessPiece {
 
     Pawn(Player color, Square currentSquare) {
-        super(color, currentSquare);
+        super(color, currentSquare, Piece.PAWN);
     }
 
     void computeValidMoves() {

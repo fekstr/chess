@@ -130,7 +130,7 @@ public class Board {
     }
 
     public static boolean isCheck() {
-        // find King and see if he is on a threathend square
+        // find King and see if he is on a threatened square
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Square currentSquare = getSquare(j,i);
@@ -158,7 +158,14 @@ public class Board {
         // set current Square
         Square currentSquare = gameState[currentPieceCoordinate.getX()][currentPieceCoordinate.getY()];
         Square nextSquare = gameState[toCurrentCoordinate.getX()][toCurrentCoordinate.getY()];
-        nextSquare.put(currentSquare.getPiece());
+
+        // Promotion
+        if (currentSquare.getPiece().getType() == Piece.PAWN && toCurrentCoordinate.getY() == 7) {
+            nextSquare.put(new Queen(currentPlayer, nextSquare));
+        } else {
+            nextSquare.put(currentSquare.getPiece());
+        }
+
         currentSquare.clear();
         switchPlayer();
         flip();

@@ -6,10 +6,16 @@ public abstract class ChessPiece {
     Player color;
     Square currentSquare;
     ArrayList<Coordinate> validMoves;
+    Piece type;
 
-    ChessPiece(Player color, Square currentSquare) {
+    ChessPiece(Player color, Square currentSquare, Piece type) {
         this.color = color;
         this.currentSquare = currentSquare;
+        this.type = type;
+    }
+
+    public Piece getType() {
+        return type;
     }
 
     public void setCurrentSquare(Square currentSquare) {
