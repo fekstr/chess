@@ -52,7 +52,7 @@ public class BoardUI extends JFrame {
                 } else {
                     clr = Color.BLACK;
                 }
-                Square square = board.getSquare(y,x);
+                Square square = board.getSquare(x,y);
                 SquareUI squareui = new SquareUI(square,clr);
                 chessPanel.add(squareui);
 
