@@ -118,6 +118,7 @@ public class BoardUI extends JFrame {
     public static void resetHighlight() {
         for(SquareUI[] s: uiSquares) {
             for(SquareUI ss: s) {
+                ss.highlighted = false;
                 ss.resetBackgroundColor();
             }
 
