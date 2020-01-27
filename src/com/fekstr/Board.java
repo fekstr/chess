@@ -36,13 +36,13 @@ public class Board {
     }
 
     private void setUpBoard(Player forPlayer) {
-        /*
+
         for (int x = 0; x < 8; x++) {
             Square currentSquare = getSquare(x, 1);
             currentSquare.put(new Pawn(forPlayer, currentSquare));
         }
 
-        */
+
 
         if (forPlayer == Player.BLACK) {
             Square currentSquare = getSquare(3, 0);
@@ -56,7 +56,6 @@ public class Board {
             currentSquare.put(new Queen(forPlayer, currentSquare));
         }
 
-        /*
 
         Square currentSquare = getSquare(1, 0);
         currentSquare.put(new Knight(forPlayer, currentSquare));
@@ -80,7 +79,7 @@ public class Board {
 
         currentSquare = getSquare(0, 3);
         currentSquare.put(new Rook(forPlayer, currentSquare));
-        */
+
     }
 
 
