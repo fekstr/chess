@@ -2,6 +2,7 @@ package com.fekstr.ui;
 import com.fekstr.Board;
 import com.fekstr.Square;
 
+
 import javax.swing.*;
 import java.awt.*;
 
