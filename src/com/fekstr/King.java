@@ -24,7 +24,7 @@ public class King extends ChessPiece {
         movesToTest.add(new Coordinate(coordinate.getX() + 1, coordinate.getY() - 1));
         movesToTest.add(new Coordinate(coordinate.getX() - 1, coordinate.getY() - 1));
 
-        System.out.println(movesToTest + " FROM PAWN " + Board.isOutsideBoard(t1) + " IS OUTSIDE IS EMPTY: " + Board.checkIfSquareIsEmpty(t1));
+
         for (Coordinate move: movesToTest) {
             if (!Board.isOutsideBoard(move)
                     && !Board.squareContainsOwnPiece(move)
@@ -66,7 +66,4 @@ public class King extends ChessPiece {
 
     }
 
-    public ArrayList<Coordinate> getValidMoves() {
-        return null;
-    }
 }
