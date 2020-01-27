@@ -43,14 +43,13 @@ public class BoardUI extends JFrame {
         c.gridy = 0;
         mainPanel.add(chessPanel,c);
 
-
         Color clr;
         for (int y = 7; y >= 0; y--) {
             for (int x = 0; x < 8; x++) {
                 if ((x + y) % 2 == 0) {
-                    clr = Color.WHITE;
+                    clr = Color.decode("#FFCE9E");
                 } else {
-                    clr = Color.BLACK;
+                    clr = Color.decode("#D18B47");
                 }
                 Square square = gameState.getSquare(x,y);
                 SquareUI squareui = new SquareUI(square,clr);

@@ -2,6 +2,7 @@ package com.fekstr.ui;
 
 import com.fekstr.ChessPiece;
 import com.fekstr.Coordinate;
+import com.fekstr.Player;
 import com.fekstr.Square;
 
 import javax.swing.JButton;
@@ -24,7 +25,6 @@ public class SquareUI extends JButton implements ActionListener {
         this.backgroundColor = color;
         //this.coordinate = coordinate;
         this.square = square;
-        this.piece = this.square.getPiece();
 
         setBorder(new LineBorder(Color.WHITE, 0));
         setBackground(this.backgroundColor);
@@ -34,14 +34,24 @@ public class SquareUI extends JButton implements ActionListener {
 
         squareuiList.add(this);
 
-        if(this.piece != null) {
-            setText(this.piece.getClass().getSimpleName());
+        if(!square.isEmpty()) {
+
+            // debug
+            if (square.getPiece().getColor() == Player.WHITE) {
+                setForeground(Color.WHITE);
+            } else {
+                setForeground(Color.BLACK);
+            }
+            setText(square.getPiece().getClass().getSimpleName());
         } else {
             setText(null);
         }
 
         /* DEBUG AREA */
-        setForeground(Color.RED);
+        //setForeground(Color.RED);
+        if (square.isThreatened) {
+            setBorder(new LineBorder(Color.RED, 1));
+        }
     }
 
     public void actionPerformed(ActionEvent e) {
