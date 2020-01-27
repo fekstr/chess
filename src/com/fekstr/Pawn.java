@@ -35,7 +35,8 @@ public class Pawn extends ChessPiece {
 
 
         for (Coordinate move: movesToTest) {
-            if (!Board.squareContainsOwnPiece(move) && !Board.willCreateCheck(coordinate, move))
+            //if (!Board.squareContainsOwnPiece(move) && !Board.willCreateCheck(coordinate, move))
+            if (!Board.squareContainsOwnPiece(move))
                 validMoves.add(move);
         }
 

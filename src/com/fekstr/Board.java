@@ -41,9 +41,15 @@ public class Board {
             currentSquare.put(new Pawn(forPlayer, currentSquare));
         }
 
-        
-        Square currentSquare = getSquare(4, 0);
-        currentSquare.put(new King(forPlayer, currentSquare));
+        if (forPlayer == Player.BLACK) {
+            Square currentSquare = getSquare(3, 0);
+            currentSquare.put(new King(forPlayer, currentSquare));
+        } else {
+            Square currentSquare = getSquare(4, 0);
+            currentSquare.put(new King(forPlayer, currentSquare));
+        }
+
+
 
 
         /*
@@ -129,7 +135,7 @@ public class Board {
     public static void handleMove(Coordinate currentPieceCoordinate, Coordinate toCurrentCoordinate) {
 
         // set current Square
-        Square currentSquare = gameState[currentPieceCoordinate.getY()][currentPieceCoordinate.getX()];
+        Square currentSquare = gameState[currentPieceCoordinate.getX()][currentPieceCoordinate.getY()];
         Square nextSquare = gameState[toCurrentCoordinate.getX()][toCurrentCoordinate.getY()];
         nextSquare.put(currentSquare.getPiece());
         currentSquare.clear();
