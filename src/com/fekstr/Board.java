@@ -96,7 +96,7 @@ public class Board {
                 // only get threatening squares if they are threatened by other player
                 if (!currentSquare.isEmpty() && currentPiece.color != currentPlayer) {
                     ArrayList<Coordinate> listOfThreatenedSquares = currentPiece.getThreatenedSquares();
-                    System.out.println(listOfThreatenedSquares);
+//                    System.out.println(listOfThreatenedSquares);
                     for (Coordinate coordinate : listOfThreatenedSquares) {
                         if (!isOutsideBoard(coordinate)) {
                             getSquare(coordinate.getX(), coordinate.getY()).setThreatened(true);
@@ -184,10 +184,6 @@ public class Board {
         flip();
         getThreatenedSquares();
 
-//        checkIfCheckmate();
-        if (isCheckmate) {
-            status = "Game over, " + playerString + " won";
-        }
 
         System.out.println(status);
         return status;
@@ -196,14 +192,28 @@ public class Board {
     public static String makeMove(Coordinate currentPieceCoordinate, Coordinate toCurrentCoordinate) {
         // Handle move and check if checkmate
 
+        String status = "";
+
+        handleMove(currentPieceCoordinate, toCurrentCoordinate);
+
+        checkIfCheckmate();
+        if (isCheckmate) {
+            status = "Game over";
+        }
+
+        System.out.println(status);
+        return status;
     }
 
     private static void checkIfCheckmate() {
         isCheckmate = true;
+
+        Player player = getCurrentPlayer();
+
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 Square currentSquare = getSquare(x, y);
-                if (currentSquare.getPiece() != null) {
+                if (currentSquare.getPiece() != null && currentSquare.getPiece().getColor() == player) {
                     ArrayList<Coordinate> currentValidMoves = currentSquare.getValidMoves();
                     if (currentValidMoves.size() > 0) {
                         isCheckmate = false;
