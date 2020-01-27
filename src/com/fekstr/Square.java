@@ -64,4 +64,8 @@ public class Square {
         }
 
     }
+
+    public Player getPlayer() {
+        return piece.getColor();
+    }
 }
