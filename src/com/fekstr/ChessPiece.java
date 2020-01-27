@@ -36,4 +36,6 @@ public abstract class ChessPiece {
     public String toString() {
         return "K";
     }
+
+    public abstract ArrayList<Coordinate> getValidMoves();
 }

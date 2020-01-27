@@ -19,7 +19,7 @@ public class Board {
 
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
-                gameState[x][y] = new Square();
+                gameState[x][y] = new Square(new Coordinate(x, y));
             }
         }
         currentPlayer = Player.WHITE;

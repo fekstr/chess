@@ -1,15 +1,27 @@
 package com.fekstr;
 
+import java.util.ArrayList;
+
 /**
  * Created by Alfred on 2020-01-23.
  */
 public class Square {
     private ChessPiece piece;
     public boolean isThreatened;
+    private Coordinate coordinate;
 
-    public Square() {
+    public Square(Coordinate coordinate) {
         piece = null;
         isThreatened = false;
+        this.coordinate = coordinate;
+    }
+
+    public Coordinate getCoordinate() {
+        return coordinate;
+    }
+
+    public ArrayList<Coordinate> getValidMoves() {
+        return piece.getValidMoves();
     }
 
     public boolean isEmpty() {
