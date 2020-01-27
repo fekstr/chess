@@ -14,22 +14,22 @@ public class Pawn extends ChessPiece {
 
 
         // One step forward
-        Coordinate t1 = new Coordinate(this.coordinate.getI() + 1, this.coordinate.getJ());
+        Coordinate t1 = new Coordinate(this.coordinate.getX() + 1, this.coordinate.getY());
         if (!Board.isOutsideBoard(t1) && Board.checkIfSquareIsEmpty(t1))
             movesToTest.add(t1);
 
         // Two steps forward
-        Coordinate t2 = new Coordinate(this.coordinate.getI() + 2, this.coordinate.getJ());
-        if (!Board.isOutsideBoard(t2) && this.coordinate.getI() == 1 && Board.checkIfSquareIsEmpty(t2))
+        Coordinate t2 = new Coordinate(this.coordinate.getX() + 2, this.coordinate.getY());
+        if (!Board.isOutsideBoard(t2) && this.coordinate.getX() == 1 && Board.checkIfSquareIsEmpty(t2))
             movesToTest.add(t2);
 
         // Step forward and right
-        Coordinate t3 = new Coordinate(this.coordinate.getI() + 1, this.coordinate.getJ() + 1);
+        Coordinate t3 = new Coordinate(this.coordinate.getX() + 1, this.coordinate.getY() + 1);
         if (!Board.isOutsideBoard(t3) && Board.squareContainsEnemyPiece(t3))
             movesToTest.add(t3);
 
         // Step forward and left
-        Coordinate t4 = new Coordinate(this.coordinate.getI() + 1, this.coordinate.getJ() - 1);
+        Coordinate t4 = new Coordinate(this.coordinate.getX() + 1, this.coordinate.getY() - 1);
         if (!Board.isOutsideBoard(t4) && Board.squareContainsEnemyPiece(t4))
             movesToTest.add(t4);
 
@@ -54,7 +54,7 @@ public class Pawn extends ChessPiece {
 
 
     public String toString() {
-        return "P " + coordinate.getI() + coordinate.getJ();
+        return "P " + coordinate.getX() + coordinate.getY();
 
     }
 
@@ -64,8 +64,8 @@ public class Pawn extends ChessPiece {
         ArrayList<Coordinate> threatenedSquares = new ArrayList<>();
         ArrayList<Coordinate> squaresToTest = new ArrayList<>();
 
-        squaresToTest.add(new Coordinate(coordinate.getI() + 1, coordinate.getJ() + 1));
-        squaresToTest.add(new Coordinate(coordinate.getI() + 1, coordinate.getJ() - 1));
+        squaresToTest.add(new Coordinate(coordinate.getX() + 1, coordinate.getY() + 1));
+        squaresToTest.add(new Coordinate(coordinate.getX() + 1, coordinate.getY() - 1));
 
         for (Coordinate c: squaresToTest) {
             if (!Board.isOutsideBoard(c) && !Board.squareContainsOwnPiece(c))

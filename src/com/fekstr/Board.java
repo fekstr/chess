@@ -2,7 +2,7 @@ package com.fekstr;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.awt.Color;
+import java.util.StringJoiner;
 
 /**
  * Created by Alfred on 2020-01-23.
@@ -16,37 +16,42 @@ public class Board {
 
 
     public Board() {
-        Color clr;
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                gameState[i][j] = new Square();
+
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                gameState[x][y] = new Square();
             }
         }
         currentPlayer = Player.WHITE;
         isCheckmate = false;
         isCurrentlyCheck = false;
         //TODO: Place pieces correctly
-        for (int i = 0; i < 8; i++) {
-            Square currentSquare = getSquare(0, i);
-            currentSquare.put(new Pawn(Player.BLACK, new Coordinate(i, 0)));
+        for (int x = 0; x < 8; x++) {
+            Square currentSquare = getSquare(x, 1);
+            currentSquare.put(new Pawn(Player.WHITE, new Coordinate(x, 1)));
         }
+        //Square currentSquare = getSquare(0, 4);
+        //currentSquare.put(new King(Player.BLACK, new Coordinate(4, 0)));
+
+        getThreatenedSquares();
     }
 
-    public static Square getSquare(int row, int col) {
-        return gameState[row][col];
+    public static Square getSquare(int x, int y) {
+        return gameState[x][y];
+
     }
 
     public static void getThreatenedSquares() {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                Square currentSquare = getSquare(i, j);
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                Square currentSquare = getSquare(x, y);
                 ChessPiece currentPiece = currentSquare.getPiece();
                 // only get threatening squares if they are threatened by other player
-                if (currentPiece.color != currentPlayer) {
+                if (!currentSquare.isEmpty() && currentPiece.color != currentPlayer) {
                     ArrayList<Coordinate> listOfThreatenedSquares = currentPiece.getThreatenedSquares();
+                    System.out.println(listOfThreatenedSquares);
                     for (Coordinate coordinate : listOfThreatenedSquares) {
-
-                        getSquare(coordinate.getI(), coordinate.getJ()).setThreatened(true);
+                        getSquare(coordinate.getX(), coordinate.getY()).setThreatened(true);
                     }
                 }
             }
@@ -64,7 +69,7 @@ public class Board {
     }
 
     public static boolean willCreateCheck(Coordinate currentCoordinate, Coordinate move) {
-        ChessPiece pieceOnMoveSquare = getSquare(move.getI(), move.getJ()).getPiece();
+        ChessPiece pieceOnMoveSquare = getSquare(move.getX(), move.getY()).getPiece();
         handleMove(currentCoordinate, move);
         getThreatenedSquares();
         boolean isChecked =  isCheck();
@@ -79,12 +84,10 @@ public class Board {
                 Square currentSquare = getSquare(j,i);
                 ChessPiece currentPiece = currentSquare.getPiece();
                 //TODO: Make King Piece
-                /*
                 if(currentPiece instanceof King && currentPiece.color == currentPlayer && currentSquare.isThreatened) {
                     isCurrentlyCheck = true;
+                    return true;
                 }
-                */
-
             }
         }
 
@@ -100,30 +103,30 @@ public class Board {
     }
 
     public static void handleMove(Coordinate currentPieceCoordinate, Coordinate toCurrentCoordinate) {
-        Square currentSquare = gameState[currentPieceCoordinate.getJ()][currentPieceCoordinate.getI()];
-        Square nextSquare = gameState[toCurrentCoordinate.getI()][toCurrentCoordinate.getJ()];
+        Square currentSquare = gameState[currentPieceCoordinate.getY()][currentPieceCoordinate.getX()];
+        Square nextSquare = gameState[toCurrentCoordinate.getX()][toCurrentCoordinate.getY()];
         nextSquare.put(currentSquare.getPiece());
         currentSquare.clear();
     }
 
     public static void revertHandleMove(Coordinate currentPieceCoordinate, Coordinate toCurrentCoordinate, ChessPiece moveSquarePiece) {
-        Square currentSquare = getSquare(currentPieceCoordinate.getI(), currentPieceCoordinate.getJ());
-        Square nextSquare = getSquare(toCurrentCoordinate.getI(), toCurrentCoordinate.getJ());
+        Square currentSquare = getSquare(currentPieceCoordinate.getX(), currentPieceCoordinate.getY());
+        Square nextSquare = getSquare(toCurrentCoordinate.getX(), toCurrentCoordinate.getY());
         currentSquare.put(nextSquare.getPiece());
         nextSquare.put(moveSquarePiece);
     }
 
     public static boolean isOutsideBoard(Coordinate coordinate) {
-        return coordinate.getI() >= 8 ||coordinate.getJ() >= 8;
+        return coordinate.getX() >= 8 ||coordinate.getY() >= 8 || coordinate.getX() < 0 || coordinate.getY() < 0;
     }
 
 
     public static boolean checkIfSquareIsEmpty(Coordinate coordinates) {
-        return getSquare(coordinates.getJ(), coordinates.getI()).isEmpty();
+        return getSquare(coordinates.getY(), coordinates.getX()).isEmpty();
     }
 
     public static boolean squareContainsOwnPiece(Coordinate move) {
-        Square currentSquare = getSquare(move.getI(), move.getJ());
+        Square currentSquare = getSquare(move.getX(), move.getY());
         if (currentSquare.isEmpty()) {
             return false;
         } else {
@@ -133,7 +136,7 @@ public class Board {
     }
 
     public static boolean squareContainsEnemyPiece(Coordinate move) {
-        Square currentSquare = getSquare(move.getI(), move.getJ());
+        Square currentSquare = getSquare(move.getX(), move.getY());
         if (currentSquare.isEmpty()) {
             return false;
         } else {
@@ -142,7 +145,6 @@ public class Board {
 
     }
 
-/*
     public static void flipHorizontally() {
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8/2; x++) {
@@ -154,21 +156,27 @@ public class Board {
             }
         }
     }
-*/
+
 
     public static void printBoard() {
-        System.out.println(Arrays.deepToString(gameState)
+        /*System.out.println(Arrays.deepToString(gameState)
                 .replace("],","\n").replace(",","\t| ")
                 .replaceAll("[\\[\\]]", " "));
-        System.out.println("\n");
+        System.out.println("\n");*/
+        StringJoiner sj = new StringJoiner(System.lineSeparator());
+        for (Square[] row : gameState) {
+            sj.add(Arrays.toString(row));
+        }
+        String result = sj.toString();
+        System.out.println(result);
     }
-    /*
+
     public static void main(String[] args) {
         Board board = new Board();
-        System.out.println("Tudilu");
+        System.out.println(gameState[0][1]);
         printBoard();
+
 
     }
 
-     */
 }

@@ -13,6 +13,7 @@ public class BoardUI extends JFrame {
     private JPanel controlPanel;
     private Board board;
 
+
     BoardUI() {
         initialize();
     }
@@ -44,14 +45,14 @@ public class BoardUI extends JFrame {
 
 
         Color clr;
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if ((j + i) % 2 == 0) {
+        for (int y = 7; y >= 0; y--) {
+            for (int x = 0; x < 8; x++) {
+                if ((x + y) % 2 == 0) {
                     clr = Color.WHITE;
                 } else {
                     clr = Color.BLACK;
                 }
-                Square square = board.getSquare(i,j);
+                Square square = board.getSquare(y,x);
                 SquareUI squareui = new SquareUI(square,clr);
                 chessPanel.add(squareui);
 
