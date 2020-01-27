@@ -44,9 +44,13 @@ public class Board {
         if (forPlayer == Player.BLACK) {
             Square currentSquare = getSquare(3, 0);
             currentSquare.put(new King(forPlayer, currentSquare));
+            currentSquare = getSquare(4, 0);
+            currentSquare.put(new Queen(forPlayer, currentSquare));
         } else {
             Square currentSquare = getSquare(4, 0);
             currentSquare.put(new King(forPlayer, currentSquare));
+            currentSquare = getSquare(3, 0);
+            currentSquare.put(new Queen(forPlayer, currentSquare));
         }
 
 
@@ -63,6 +67,14 @@ public class Board {
 
         currentSquare = getSquare(2, 0);
         currentSquare.put(new Bishop(forPlayer, currentSquare));
+
+        currentSquare = getSquare(7, 0);
+        currentSquare.put(new Rook(forPlayer, currentSquare));
+
+        currentSquare = getSquare(0, 0);
+        currentSquare.put(new Rook(forPlayer, currentSquare));
+
+
 
 
     }
@@ -81,6 +93,7 @@ public class Board {
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 Square currentSquare = getSquare(x, y);
+                currentSquare.setThreatened(false);
                 ChessPiece currentPiece = currentSquare.getPiece();
                 // only get threatening squares if they are threatened by other player
                 if (!currentSquare.isEmpty() && currentPiece.color != currentPlayer) {

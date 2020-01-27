@@ -5,52 +5,17 @@ import java.util.ArrayList;
 /**
  * Created by Alfred on 2020-01-27.
  */
-public class Queen extends ChessPiece {
-    Queen(Player color, Square currentSquare) {
+public class Rook extends ChessPiece {
+    Rook(Player color, Square currentSquare) {
         super(color, currentSquare);
     }
 
     private ArrayList<Coordinate> getMovesToTest() {
         ArrayList<Coordinate> movesToTest = new ArrayList<>();
         Coordinate coordinate = currentSquare.getCoordinate();
+
         boolean containsPiece = false;
         int i = 1;
-        while (!containsPiece) {
-            Coordinate p = new Coordinate(coordinate.getX() + i, coordinate.getY() + i);
-            movesToTest.add(p);
-            containsPiece = Board.squareContainsEnemyPiece(p) || Board.squareContainsOwnPiece(p) || Board.isOutsideBoard(p);
-            i += 1;
-        }
-
-        containsPiece = false;
-        i = 1;
-        while (!containsPiece) {
-            Coordinate p = new Coordinate(coordinate.getX() - i, coordinate.getY() + i);
-            movesToTest.add(p);
-            containsPiece = Board.squareContainsEnemyPiece(p) || Board.squareContainsOwnPiece(p) || Board.isOutsideBoard(p);
-            i += 1;
-        }
-
-        containsPiece = false;
-        i = 1;
-        while (!containsPiece) {
-            Coordinate p = new Coordinate(coordinate.getX() - i, coordinate.getY() - i);
-            movesToTest.add(p);
-            containsPiece = Board.squareContainsEnemyPiece(p) || Board.squareContainsOwnPiece(p) || Board.isOutsideBoard(p);
-            i += 1;
-        }
-
-        containsPiece = false;
-        i = 1;
-        while (!containsPiece) {
-            Coordinate p = new Coordinate(coordinate.getX() + i, coordinate.getY() - i);
-            movesToTest.add(p);
-            containsPiece = Board.squareContainsEnemyPiece(p) || Board.squareContainsOwnPiece(p) || Board.isOutsideBoard(p);
-            i += 1;
-        }
-
-        containsPiece = false;
-        i = 1;
         while (!containsPiece) {
             Coordinate p = new Coordinate(coordinate.getX(), coordinate.getY() + i);
             movesToTest.add(p);
