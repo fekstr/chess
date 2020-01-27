@@ -61,8 +61,8 @@ public class BoardUI extends JFrame {
         c.gridy = 1;
         c.weighty = 0.05;
 
-        controlPanel.add(new JButton("Start"));
-        controlPanel.add(new JButton("XXXXX"));
+//        controlPanel.add(new JButton("Start"));
+//        controlPanel.add(new JButton("XXXXX"));
         controlPanel.add(statusLabel);
 
         controlPanel.setSize(400,50);

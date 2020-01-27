@@ -102,12 +102,14 @@ public class SquareUI extends JButton implements ActionListener {
             else {
                 activePlay = false;
                 BoardUI.resetHighlight();
+                status = "INVALID MOVE";
             }
 
 
             System.out.println("that worked");
         } else {
             // Reset on click outside of highlight
+            status = "INVALID MOVE";
             activePlay = false;
             BoardUI.resetHighlight();
 
