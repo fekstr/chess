@@ -51,17 +51,27 @@ public class Board {
 
 
 
+        Square currentSquare = getSquare(1, 0);
+        currentSquare.put(new Knight(forPlayer, currentSquare));
 
-        /*
-        Square currentSquare = getSquare(4, 0);
-        currentSquare = getSquare(1, 0);
-        currentSquare.put(new Knight(forPlayer, new Coordinate(1, 0)));
-        */
+        currentSquare = getSquare(6, 0);
+        currentSquare.put(new Knight(forPlayer, currentSquare));
+
+
+        currentSquare = getSquare(5, 0);
+        currentSquare.put(new Bishop(forPlayer, currentSquare));
+
+        currentSquare = getSquare(2, 0);
+        currentSquare.put(new Bishop(forPlayer, currentSquare));
+
 
     }
 
 
     public static Square getSquare(int x, int y) {
+        if (isOutsideBoard(new Coordinate(x,y))) {
+            return null;
+        }
         return gameState[x][y];
 
     }
@@ -158,6 +168,7 @@ public class Board {
     }
 
     public static boolean squareContainsOwnPiece(Coordinate move) {
+        if (isOutsideBoard(move)) return false;
         Square currentSquare = getSquare(move.getX(), move.getY());
         if (currentSquare.isEmpty()) {
             return false;
@@ -168,6 +179,7 @@ public class Board {
     }
 
     public static boolean squareContainsEnemyPiece(Coordinate move) {
+        if (isOutsideBoard(move)) return false;
         Square currentSquare = getSquare(move.getX(), move.getY());
         if (currentSquare.isEmpty()) {
             return false;
