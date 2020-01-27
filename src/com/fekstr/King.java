@@ -45,7 +45,7 @@ public class King extends ChessPiece {
 
     public String toString() {
         Coordinate coordinate = currentSquare.getCoordinate();
-        return "K " + coordinate.getX() + coordinate.getY();
+        return "King " + coordinate.getX() + coordinate.getY();
 
     }
 

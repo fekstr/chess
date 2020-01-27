@@ -56,7 +56,7 @@ public class Pawn extends ChessPiece {
 
     public String toString() {
         Coordinate coordinate = currentSquare.getCoordinate();
-        return "P " + coordinate.getX() + coordinate.getY();
+        return "Pawn " + coordinate.getX() + coordinate.getY();
 
     }
 

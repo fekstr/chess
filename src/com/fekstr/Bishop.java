@@ -79,7 +79,7 @@ public class Bishop extends ChessPiece {
 
     public String toString() {
         Coordinate coordinate = currentSquare.getCoordinate();
-        return "bishop " + coordinate.getX() + coordinate.getY();
+        return "Bishop " + coordinate.getX() + coordinate.getY();
 
     }
 

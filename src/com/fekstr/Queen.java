@@ -115,7 +115,7 @@ public class Queen extends ChessPiece {
 
     public String toString() {
         Coordinate coordinate = currentSquare.getCoordinate();
-        return "bishop " + coordinate.getX() + coordinate.getY();
+        return "Queen " + coordinate.getX() + coordinate.getY();
 
     }
 
