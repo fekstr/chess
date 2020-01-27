@@ -65,4 +65,8 @@ public class King extends ChessPiece {
         return movesToTest;
 
     }
+
+    public ArrayList<Coordinate> getValidMoves() {
+        return null;
+    }
 }

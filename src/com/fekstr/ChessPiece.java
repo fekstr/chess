@@ -31,9 +31,14 @@ public abstract class ChessPiece {
         }
     };
 
+    public Player getColor() {
+        return color;
+    }
     // Return squares threatened by piece
     abstract ArrayList<Coordinate> getThreatenedSquares();
     public String toString() {
         return "K";
     }
+
+    public abstract ArrayList<Coordinate> getValidMoves();
 }

@@ -14,13 +14,13 @@ public class Pawn extends ChessPiece {
 
 
         // One step forward
-        Coordinate t1 = new Coordinate(this.coordinate.getX() + 1, this.coordinate.getY());
+        Coordinate t1 = new Coordinate(this.coordinate.getX(), this.coordinate.getY() + 1);
         if (!Board.isOutsideBoard(t1) && Board.checkIfSquareIsEmpty(t1))
             movesToTest.add(t1);
 
         // Two steps forward
-        Coordinate t2 = new Coordinate(this.coordinate.getX() + 2, this.coordinate.getY());
-        if (!Board.isOutsideBoard(t2) && this.coordinate.getX() == 1 && Board.checkIfSquareIsEmpty(t2))
+        Coordinate t2 = new Coordinate(this.coordinate.getX(), this.coordinate.getY() + 2);
+        if (!Board.isOutsideBoard(t2) && this.coordinate.getY() == 1 && Board.checkIfSquareIsEmpty(t2))
             movesToTest.add(t2);
 
         // Step forward and right
@@ -46,6 +46,11 @@ public class Pawn extends ChessPiece {
         // BoardUI.highlightSquares(this.validMoves)
     }
 
+    public ArrayList<Coordinate> getValidMoves() {
+        computeValidMoves();
+        return this.validMoves;
+    }
+
     boolean isValidMove(Coordinate toCoordinate) {
         return validMoves.contains(toCoordinate);
 
@@ -65,7 +70,7 @@ public class Pawn extends ChessPiece {
         ArrayList<Coordinate> squaresToTest = new ArrayList<>();
 
         squaresToTest.add(new Coordinate(coordinate.getX() + 1, coordinate.getY() + 1));
-        squaresToTest.add(new Coordinate(coordinate.getX() + 1, coordinate.getY() - 1));
+        squaresToTest.add(new Coordinate(coordinate.getX() - 1, coordinate.getY() + 1));
 
         for (Coordinate c: squaresToTest) {
             if (!Board.isOutsideBoard(c) && !Board.squareContainsOwnPiece(c))

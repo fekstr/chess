@@ -19,21 +19,45 @@ public class Board {
 
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
-                gameState[x][y] = new Square();
+                gameState[x][y] = new Square(new Coordinate(x, y));
             }
         }
         currentPlayer = Player.WHITE;
         isCheckmate = false;
         isCurrentlyCheck = false;
         //TODO: Place pieces correctly
+
+        // Black
+        /*for (int x = 0; x < 8; x++) {
+            Square currentSquare = getSquare(x, 6);
+            currentSquare.put(new Pawn(Player.BLACK, new Coordinate(x, 6)));
+        }
+
+
+
+
         for (int x = 0; x < 8; x++) {
             Square currentSquare = getSquare(x, 1);
             currentSquare.put(new Pawn(Player.WHITE, new Coordinate(x, 1)));
-        }
-        //Square currentSquare = getSquare(0, 4);
-        //currentSquare.put(new King(Player.BLACK, new Coordinate(4, 0)));
+        }*/
+
+        setUpBoard(Player.WHITE);
+        flipHorizontally();
+        setUpBoard(Player.BLACK);
+        flipHorizontally();
 
         getThreatenedSquares();
+    }
+
+    private void setUpBoard(Player forPlayer) {
+
+        for (int x = 0; x < 8; x++) {
+            Square currentSquare = getSquare(x, 1);
+            currentSquare.put(new Pawn(forPlayer, new Coordinate(x, 1)));
+        }
+        Square currentSquare = getSquare(4, 0);
+        currentSquare.put(new King(forPlayer, new Coordinate(4, 0)));
+
     }
 
     public static Square getSquare(int x, int y) {
@@ -42,6 +66,7 @@ public class Board {
     }
 
     public static void getThreatenedSquares() {
+        flipHorizontally();
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 Square currentSquare = getSquare(x, y);
@@ -51,11 +76,15 @@ public class Board {
                     ArrayList<Coordinate> listOfThreatenedSquares = currentPiece.getThreatenedSquares();
                     System.out.println(listOfThreatenedSquares);
                     for (Coordinate coordinate : listOfThreatenedSquares) {
-                        getSquare(coordinate.getX(), coordinate.getY()).setThreatened(true);
+                        if (!isOutsideBoard(coordinate)) {
+                            getSquare(coordinate.getX(), coordinate.getY()).setThreatened(true);
+                        }
+
                     }
                 }
             }
         }
+        flipHorizontally();
     }
 
     public static void newTurn() {
@@ -148,11 +177,11 @@ public class Board {
     public static void flipHorizontally() {
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8/2; x++) {
-                Square tmp = getSquare(8-x-1, y);
-                getSquare(x, y).setCoordinatesOfPiece(new Coordinate(8-x-1, y));
-                gameState[8-x-1][y] = getSquare(x, y);
-                tmp.setCoordinatesOfPiece(new Coordinate(x,y));
-                gameState[x][y] = tmp;
+                Square tmp = getSquare(y, 8-x-1);
+                getSquare(x, y).setCoordinatesOfPiece(new Coordinate(y, 8-x-1));
+                gameState[y][8-x-1] = getSquare(y, x);
+                tmp.setCoordinatesOfPiece(new Coordinate(y,x));
+                gameState[y][x] = tmp;
             }
         }
     }
