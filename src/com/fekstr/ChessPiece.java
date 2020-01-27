@@ -42,5 +42,9 @@ public abstract class ChessPiece {
         return "K";
     }
 
-    public abstract ArrayList<Coordinate> getValidMoves();
+    public ArrayList<Coordinate> getValidMoves() {
+        computeValidMoves();
+        System.out.println(validMoves);
+        return validMoves;
+    }
 }

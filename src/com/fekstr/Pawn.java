@@ -47,11 +47,6 @@ public class Pawn extends ChessPiece {
         // BoardUI.highlightSquares(this.validMoves)
     }
 
-    public ArrayList<Coordinate> getValidMoves() {
-        computeValidMoves();
-        return this.validMoves;
-    }
-
     boolean isValidMove(Coordinate toCoordinate) {
         return validMoves.contains(toCoordinate);
 
