@@ -25,7 +25,12 @@ public class Square {
     }
 
     public ArrayList<Coordinate> getValidMoves() {
-        return piece.getValidMoves();
+        if (piece != null) {
+            return piece.getValidMoves();
+        }
+        else {
+            return null;
+        }
     }
 
     public boolean isEmpty() {

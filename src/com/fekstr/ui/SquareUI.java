@@ -85,7 +85,6 @@ public class SquareUI extends JButton implements ActionListener {
 
                 BoardUI.renderBoard();
 
-//                BoardUI.resetHighlight();
                 activePlay = false;
             }
 

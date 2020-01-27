@@ -132,9 +132,9 @@ public class Board {
 
     public static boolean isCheck() {
         // find King and see if he is on a threatened square
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                Square currentSquare = getSquare(j,i);
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                Square currentSquare = getSquare(x, y);
                 ChessPiece currentPiece = currentSquare.getPiece();
                 //TODO: Make King Piece
                 if(currentPiece instanceof King && currentPiece.color == currentPlayer && currentSquare.isThreatened) {
@@ -155,14 +155,26 @@ public class Board {
         }
     }
 
-    public static void handleMove(Coordinate currentPieceCoordinate, Coordinate toCurrentCoordinate) {
+    public static String handleMove(Coordinate currentPieceCoordinate, Coordinate toCurrentCoordinate) {
+        String status = "";
+
         // set current Square
         Square currentSquare = gameState[currentPieceCoordinate.getX()][currentPieceCoordinate.getY()];
+        Player player = currentSquare.getPlayer();
+        String playerString;
+
+        if (player == Player.WHITE) {
+            playerString = "WHITE";
+        } else {
+            playerString = "BLACK";
+        }
+
         Square nextSquare = gameState[toCurrentCoordinate.getX()][toCurrentCoordinate.getY()];
 
-        // Promotion
         if (currentSquare.getPiece().getType() == Piece.PAWN && toCurrentCoordinate.getY() == 7) {
+            // Promotion
             nextSquare.put(new Queen(currentPlayer, nextSquare));
+            status = playerString + " promoted a pawn to queen";
         } else {
             nextSquare.put(currentSquare.getPiece());
         }
@@ -172,6 +184,34 @@ public class Board {
         flip();
         getThreatenedSquares();
 
+//        checkIfCheckmate();
+        if (isCheckmate) {
+            status = "Game over, " + playerString + " won";
+        }
+
+        System.out.println(status);
+        return status;
+    }
+
+    public static String makeMove(Coordinate currentPieceCoordinate, Coordinate toCurrentCoordinate) {
+        // Handle move and check if checkmate
+
+    }
+
+    private static void checkIfCheckmate() {
+        isCheckmate = true;
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                Square currentSquare = getSquare(x, y);
+                if (currentSquare.getPiece() != null) {
+                    ArrayList<Coordinate> currentValidMoves = currentSquare.getValidMoves();
+                    if (currentValidMoves.size() > 0) {
+                        isCheckmate = false;
+                        break;
+                    }
+                }
+            }
+        }
     }
 
 

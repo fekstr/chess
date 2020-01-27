@@ -92,7 +92,7 @@ public class Queen extends ChessPiece {
     void computeValidMoves() {
         ArrayList<Coordinate> validMoves = new ArrayList<>();
         ArrayList<Coordinate> movesToTest = getMovesToTest();
-        Coordinate coordinate = currentSquare.getCoordinate(); // May create bug?
+        Coordinate coordinate = currentSquare.getCoordinate();
 
         for (Coordinate move: movesToTest) {
             if (!Board.isOutsideBoard(move)
