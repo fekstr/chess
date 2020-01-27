@@ -69,7 +69,7 @@ public class Pawn extends ChessPiece {
         squaresToTest.add(new Coordinate(coordinate.getX() + 1, coordinate.getY() + 1));
         squaresToTest.add(new Coordinate(coordinate.getX() - 1, coordinate.getY() + 1));
         for (Coordinate c: squaresToTest) {
-            if (!Board.isOutsideBoard(c) && !Board.squareContainsOwnPiece(c))
+            if (!Board.isOutsideBoard(c))
                 threatenedSquares.add(c);
         }
 

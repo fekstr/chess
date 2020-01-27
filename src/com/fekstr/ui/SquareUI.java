@@ -50,7 +50,7 @@ public class SquareUI extends JButton implements ActionListener {
         /* DEBUG AREA */
         //setForeground(Color.RED);
         if (square.isThreatened) {
-            setBorder(new LineBorder(Color.RED, 1));
+            setBorder(new LineBorder(Color.RED, 2));
         }
     }
 
@@ -88,7 +88,7 @@ public class SquareUI extends JButton implements ActionListener {
                 activePlay = false;
             }
 
-
+            //BoardUI.renderBoard();
             System.out.println("that worked");
         }
 

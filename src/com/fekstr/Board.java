@@ -1,5 +1,6 @@
 package com.fekstr;
 
+import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.StringJoiner;
@@ -35,11 +36,13 @@ public class Board {
     }
 
     private void setUpBoard(Player forPlayer) {
-
+        /*
         for (int x = 0; x < 8; x++) {
             Square currentSquare = getSquare(x, 1);
             currentSquare.put(new Pawn(forPlayer, currentSquare));
         }
+
+        */
 
         if (forPlayer == Player.BLACK) {
             Square currentSquare = getSquare(3, 0);
@@ -53,7 +56,7 @@ public class Board {
             currentSquare.put(new Queen(forPlayer, currentSquare));
         }
 
-
+        /*
 
         Square currentSquare = getSquare(1, 0);
         currentSquare.put(new Knight(forPlayer, currentSquare));
@@ -68,12 +71,16 @@ public class Board {
         currentSquare = getSquare(2, 0);
         currentSquare.put(new Bishop(forPlayer, currentSquare));
 
+
         currentSquare = getSquare(7, 0);
         currentSquare.put(new Rook(forPlayer, currentSquare));
 
         currentSquare = getSquare(0, 0);
         currentSquare.put(new Rook(forPlayer, currentSquare));
 
+        currentSquare = getSquare(0, 3);
+        currentSquare.put(new Rook(forPlayer, currentSquare));
+        */
     }
 
 
@@ -91,12 +98,11 @@ public class Board {
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 Square currentSquare = getSquare(x, y);
-                currentSquare.setThreatened(false);
                 ChessPiece currentPiece = currentSquare.getPiece();
                 // only get threatening squares if they are threatened by other player
                 if (!currentSquare.isEmpty() && currentPiece.color != currentPlayer) {
                     ArrayList<Coordinate> listOfThreatenedSquares = currentPiece.getThreatenedSquares();
-                    System.out.println(listOfThreatenedSquares);
+                    //System.out.println(listOfThreatenedSquares);
                     for (Coordinate coordinate : listOfThreatenedSquares) {
                         if (!isOutsideBoard(coordinate)) {
                             getSquare(coordinate.getX(), coordinate.getY()).setThreatened(true);
@@ -122,11 +128,15 @@ public class Board {
     public static boolean willCreateCheck(Coordinate currentCoordinate, Coordinate move) {
         ChessPiece pieceOnMoveSquare = getSquare(move.getX(), move.getY()).getPiece();
         handleMove(currentCoordinate, move);
+        clearThreathend();
         switchPlayer();
         flip();
         getThreatenedSquares();
+
+
         boolean isChecked =  isCheck();
         revertHandleMove(currentCoordinate, move, pieceOnMoveSquare);
+        System.out.println("is Checked? " + isChecked);
         return isChecked;
     }
 
@@ -136,8 +146,11 @@ public class Board {
             for (int y = 0; y < 8; y++) {
                 Square currentSquare = getSquare(x, y);
                 ChessPiece currentPiece = currentSquare.getPiece();
-                //TODO: Make King Piece
+                if (!currentSquare.isEmpty() && currentPiece.getType() == Piece.KING) {
+                    System.out.println("King Square of curr player " + currentPlayer);
+                }
                 if(currentPiece instanceof King && currentPiece.color == currentPlayer && currentSquare.isThreatened) {
+                    System.out.println("INSIEDE KING CHECK");
                     isCurrentlyCheck = true;
                     return true;
                 }
@@ -153,6 +166,15 @@ public class Board {
         } else {
             currentPlayer = Player.WHITE;
         }
+    }
+
+    private static void clearThreathend() {
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                getSquare(x,y).setThreatened(false);
+            }
+        }
+
     }
 
     public static String handleMove(Coordinate currentPieceCoordinate, Coordinate toCurrentCoordinate) {
@@ -182,6 +204,7 @@ public class Board {
         currentSquare.clear();
         switchPlayer();
         flip();
+        clearThreathend();
         getThreatenedSquares();
 
 //        checkIfCheckmate();
@@ -195,7 +218,7 @@ public class Board {
 
     public static String makeMove(Coordinate currentPieceCoordinate, Coordinate toCurrentCoordinate) {
         // Handle move and check if checkmate
-
+        return null;
     }
 
     private static void checkIfCheckmate() {
@@ -220,6 +243,7 @@ public class Board {
         Square nextSquare = getSquare(toCurrentCoordinate.getX(), toCurrentCoordinate.getY());
         currentSquare.put(nextSquare.getPiece());
         nextSquare.put(moveSquarePiece);
+
     }
 
     public static boolean isOutsideBoard(Coordinate coordinate) {
