@@ -34,7 +34,10 @@ public class Square {
 
     public void put(ChessPiece p) {
         piece = p;
-        p.setCurrentSquare(this);
+
+        if (p != null) {
+            p.setCurrentSquare(this);
+        }
     }
 
     public void clear() {

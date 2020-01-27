@@ -30,10 +30,12 @@ public class Knight extends ChessPiece {
     void computeValidMoves() {
         ArrayList<Coordinate> validMoves = new ArrayList<>();
         ArrayList<Coordinate> movesToTest = getMovesToTest();
+        Coordinate coordinate = currentSquare.getCoordinate();
 
         for (Coordinate move: movesToTest) {
             if (!Board.isOutsideBoard(move)
                     && !Board.squareContainsOwnPiece(move)
+                    && !Board.willCreateCheck(coordinate, move)
                     ) {
                 validMoves.add(move);
             }

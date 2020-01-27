@@ -60,15 +60,22 @@ public class SquareUI extends JButton implements ActionListener {
             Coordinate c = square.getCoordinate();
 
 
-            if(!this.isHighlighted() && !activePlay && Board.getCurrentPlayer() == this.square.getPlayer()) {
+            if(!activePlay && Board.getCurrentPlayer() == this.square.getPlayer()) {
                 activePlay = true;
                 ArrayList<Coordinate> validMoves = square.getValidMoves();
-                BoardUI.highlightValidMoves(validMoves);
-                for (Coordinate cc : validMoves) {
-                    System.out.println(cc);
+
+                if (validMoves.size() == 0) {
+                    activePlay = false;
+                    System.out.println("No valid moves");
+                } else {
+                    BoardUI.highlightValidMoves(validMoves);
+                    for (Coordinate cc : validMoves) {
+                        System.out.println(cc);
+                    }
+
+                    BoardUI.setCurrentCoordinate(c);
                 }
 
-                BoardUI.setCurrentCoordinate(c);
             }
 
             else if (activePlay && BoardUI.getCurrentCoordinate() != null && this.isHighlighted()) {
