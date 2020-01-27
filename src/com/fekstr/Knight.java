@@ -10,8 +10,7 @@ public class Knight extends ChessPiece {
         super(color, currentSquare);
     }
 
-    void computeValidMoves() {
-        ArrayList<Coordinate> validMoves = new ArrayList<>();
+    private ArrayList<Coordinate> getMovesToTest() {
         ArrayList<Coordinate> movesToTest = new ArrayList<>();
         Coordinate coordinate = currentSquare.getCoordinate();
         movesToTest.add(new Coordinate(coordinate.getX() + 1, coordinate.getY() + 2));
@@ -25,11 +24,16 @@ public class Knight extends ChessPiece {
 
         movesToTest.add(new Coordinate(coordinate.getX() + 1, coordinate.getY() - 2));
         movesToTest.add(new Coordinate(coordinate.getX() - 1, coordinate.getY() - 2));
+        return movesToTest;
+    }
+
+    void computeValidMoves() {
+        ArrayList<Coordinate> validMoves = new ArrayList<>();
+        ArrayList<Coordinate> movesToTest = getMovesToTest();
 
         for (Coordinate move: movesToTest) {
             if (!Board.isOutsideBoard(move)
                     && !Board.squareContainsOwnPiece(move)
-                    && !Board.willCreateCheck(coordinate, move)
                     ) {
                 validMoves.add(move);
             }
@@ -52,24 +56,10 @@ public class Knight extends ChessPiece {
     }
 
     ArrayList<Coordinate> getThreatenedSquares() {
-        ArrayList<Coordinate> movesToTest = new ArrayList<>();
-        Coordinate coordinate = currentSquare.getCoordinate();
-        movesToTest.add(new Coordinate(coordinate.getX() + 1, coordinate.getY() + 2));
-        movesToTest.add(new Coordinate(coordinate.getX() - 1, coordinate.getY() + 2));
+        ArrayList<Coordinate> movesToTest = getMovesToTest();
 
-        movesToTest.add(new Coordinate(coordinate.getX() + 2, coordinate.getY() + 1));
-        movesToTest.add(new Coordinate(coordinate.getX() - 2, coordinate.getY() + 1));
-
-        movesToTest.add(new Coordinate(coordinate.getX() + 2, coordinate.getY() - 1));
-        movesToTest.add(new Coordinate(coordinate.getX() - 2, coordinate.getY() - 1));
-
-        movesToTest.add(new Coordinate(coordinate.getX() + 1, coordinate.getY() - 2));
-        movesToTest.add(new Coordinate(coordinate.getX() - 1, coordinate.getY() - 2));
         return movesToTest;
 
     }
 
-    public ArrayList<Coordinate> getValidMoves() {
-        return null;
-    }
 }
