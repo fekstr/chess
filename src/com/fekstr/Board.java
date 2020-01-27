@@ -22,29 +22,14 @@ public class Board {
                 gameState[x][y] = new Square(new Coordinate(x, y));
             }
         }
+
         currentPlayer = Player.WHITE;
         isCheckmate = false;
         isCurrentlyCheck = false;
-        //TODO: Place pieces correctly
-
-        // Black
-        /*for (int x = 0; x < 8; x++) {
-            Square currentSquare = getSquare(x, 6);
-            currentSquare.put(new Pawn(Player.BLACK, new Coordinate(x, 6)));
-        }
-
-
-
-
-        for (int x = 0; x < 8; x++) {
-            Square currentSquare = getSquare(x, 1);
-            currentSquare.put(new Pawn(Player.WHITE, new Coordinate(x, 1)));
-        }*/
-
         setUpBoard(Player.WHITE);
-        flipHorizontally();
+        flip();
         setUpBoard(Player.BLACK);
-        flipHorizontally();
+        flip();
 
         getThreatenedSquares();
     }
@@ -53,12 +38,21 @@ public class Board {
 
         for (int x = 0; x < 8; x++) {
             Square currentSquare = getSquare(x, 1);
-            currentSquare.put(new Pawn(forPlayer, new Coordinate(x, 1)));
+            currentSquare.put(new Pawn(forPlayer, currentSquare));
         }
+
         Square currentSquare = getSquare(4, 0);
-        currentSquare.put(new King(forPlayer, new Coordinate(4, 0)));
+        currentSquare.put(new King(forPlayer, currentSquare));
+
+
+        /*
+        Square currentSquare = getSquare(4, 0);
+        currentSquare = getSquare(1, 0);
+        currentSquare.put(new Knight(forPlayer, new Coordinate(1, 0)));
+        */
 
     }
+
 
     public static Square getSquare(int x, int y) {
         return gameState[x][y];
@@ -66,7 +60,7 @@ public class Board {
     }
 
     public static void getThreatenedSquares() {
-        flipHorizontally();
+        flip();
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 Square currentSquare = getSquare(x, y);
@@ -84,7 +78,7 @@ public class Board {
                 }
             }
         }
-        flipHorizontally();
+        flip();
     }
 
     public static void newTurn() {
@@ -132,6 +126,8 @@ public class Board {
     }
 
     public static void handleMove(Coordinate currentPieceCoordinate, Coordinate toCurrentCoordinate) {
+
+        // set current Square
         Square currentSquare = gameState[currentPieceCoordinate.getY()][currentPieceCoordinate.getX()];
         Square nextSquare = gameState[toCurrentCoordinate.getX()][toCurrentCoordinate.getY()];
         nextSquare.put(currentSquare.getPiece());
@@ -173,39 +169,47 @@ public class Board {
         }
 
     }
-
+    /*
     public static void flipHorizontally() {
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8/2; x++) {
                 Square tmp = getSquare(y, 8-x-1);
-                getSquare(x, y).setCoordinatesOfPiece(new Coordinate(y, 8-x-1));
+                getSquare(x, y).setCoordinate(new Coordinate(y, 8-x-1));
                 gameState[y][8-x-1] = getSquare(y, x);
-                tmp.setCoordinatesOfPiece(new Coordinate(y,x));
+                tmp.setCoordinate(new Coordinate(y,x));
                 gameState[y][x] = tmp;
             }
         }
     }
-
-
-    public static void printBoard() {
-        /*System.out.println(Arrays.deepToString(gameState)
-                .replace("],","\n").replace(",","\t| ")
-                .replaceAll("[\\[\\]]", " "));
-        System.out.println("\n");*/
-        StringJoiner sj = new StringJoiner(System.lineSeparator());
-        for (Square[] row : gameState) {
-            sj.add(Arrays.toString(row));
+    */
+    private static void flipHorizontally() {
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8/2; x++) {
+                Square tmp = getSquare(8-x-1, y);
+                getSquare(x,y).setCoordinate(new Coordinate(8-x-1, y));
+                gameState[8-x-1][y] = getSquare(x, y);
+                tmp.setCoordinate(new Coordinate(x, y));
+                gameState[x][y] = tmp;
+            }
         }
-        String result = sj.toString();
-        System.out.println(result);
     }
 
-    public static void main(String[] args) {
-        Board board = new Board();
-        System.out.println(gameState[0][1]);
-        printBoard();
-
-
+    private static void flipVertically() {
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8/2; y++) {
+                Square tmp = getSquare(x, 8 - y - 1);
+                getSquare(x,y).setCoordinate(new Coordinate(x, 8 - y - 1));
+                gameState[x][8 - y - 1] = getSquare(x, y);
+                tmp.setCoordinate(new Coordinate(x,y));
+                gameState[x][y] = tmp;
+            }
+        }
     }
+
+    private static void flip() {
+        flipHorizontally();
+        flipVertically();
+    }
+
 
 }
