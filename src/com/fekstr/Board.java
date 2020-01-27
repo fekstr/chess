@@ -41,6 +41,7 @@ public class Board {
             currentSquare.put(new Pawn(forPlayer, currentSquare));
         }
 
+        
         Square currentSquare = getSquare(4, 0);
         currentSquare.put(new King(forPlayer, currentSquare));
 
