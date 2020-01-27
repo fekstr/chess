@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.util.ArrayList;
 
-public class Square extends JButton implements ActionListener {
+public class Square_outdated extends JButton implements ActionListener {
 
     private ChessPiece piece = null;
     private Coordinate coordinate;
@@ -18,7 +18,9 @@ public class Square extends JButton implements ActionListener {
     public boolean isThreatened;
     public boolean hasPiece = false;
 
-    private static ArrayList<Square> squareList = new ArrayList<Square>();
+    // Image of piece
+
+    private static ArrayList<Square_outdated> squareList = new ArrayList<Square_outdated>();
 
     private ArrayList<Coordinate> moves;
 
@@ -26,7 +28,7 @@ public class Square extends JButton implements ActionListener {
 
 
 
-    Square(Color color) { //, Coordinate coordinate
+    public Square_outdated(Color color) { //, Coordinate coordinate
         this.backgroundColor = color;
         //this.coordinate = coordinate;
 
@@ -34,16 +36,16 @@ public class Square extends JButton implements ActionListener {
         setBackground(this.backgroundColor);
         setOpaque(true);
         setBorderPainted(true);
+        addActionListener(this);
+        setForeground(Color.RED);
+
 
     }
 
     public void actionPerformed(ActionEvent e) {
-        /*
-        if(currentPlayer == this.piece.getColor() && !isEmpty()) {
-            highlightSquares();
-        }
+        System.out.println(getPiece());
+        highlightSquares();
 
-         */
     }
 
     private Coordinate getCoordinate() {
@@ -51,47 +53,45 @@ public class Square extends JButton implements ActionListener {
     }
 
     private void highlightSquares() {
-        this.backgroundColor.darker();
-        /*
-        moves = this.piece.getValidMoves();
+        setBackground(Color.lightGray);
+
+        /*moves = this.piece.getValidMoves();
         for (Square s: squareList) {
             for (Coordinate c: moves) {
                 if(s.getCoordinate().equals(c)) {
                     s.backgroundColor.darker();
                 }
             }
-        }
-
-         */
+        }*/
     }
 
-    /*
-    void put(ChessPiece piece) {
+
+    public void put(ChessPiece piece) {
         // Should only occur at an attack
         if(hasPiece) {
 
         } else {
             hasPiece = !hasPiece;
             this.piece = piece;
+
+            setText(piece.getClass().getSimpleName());
         }
 
     }
 
-    String getPiece() {
-        return this.piece.getPiece();
+    public ChessPiece getPiece() {
+        return this.piece;
     }
 
     String getPos() {
         return String.format("(%d, %d)",coordinate.getI(),coordinate.getJ());
     }
 
-    void clear() {
+    public void clear() {
         piece = null;
     }
 
-    boolean isEmpty() {
+    public boolean isEmpty() {
         return piece == null;
     }
-
-     */
 }

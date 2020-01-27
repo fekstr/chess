@@ -2,6 +2,7 @@ package com.fekstr;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.awt.Color;
 
 /**
  * Created by Alfred on 2020-01-23.
@@ -15,6 +16,7 @@ public class Board {
 
 
     public Board() {
+        Color clr;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 gameState[i][j] = new Square();
@@ -30,7 +32,7 @@ public class Board {
         }
     }
 
-    private static Square getSquare(int row, int col) {
+    public static Square getSquare(int row, int col) {
         return gameState[row][col];
     }
 
@@ -43,6 +45,7 @@ public class Board {
                 if (currentPiece.color != currentPlayer) {
                     ArrayList<Coordinate> listOfThreatenedSquares = currentPiece.getThreatenedSquares();
                     for (Coordinate coordinate : listOfThreatenedSquares) {
+
                         getSquare(coordinate.getI(), coordinate.getJ()).setThreatened(true);
                     }
                 }
@@ -54,7 +57,7 @@ public class Board {
         // Resets squares
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                getSquare(i, j).setThreatened(false);
+                //getSquare(i, j).setThreatened(false);
             }
         }
         getThreatenedSquares();
@@ -139,7 +142,7 @@ public class Board {
 
     }
 
-
+/*
     public static void flipHorizontally() {
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8/2; x++) {
@@ -151,7 +154,7 @@ public class Board {
             }
         }
     }
-
+*/
 
     public static void printBoard() {
         System.out.println(Arrays.deepToString(gameState)
@@ -159,10 +162,13 @@ public class Board {
                 .replaceAll("[\\[\\]]", " "));
         System.out.println("\n");
     }
+    /*
     public static void main(String[] args) {
         Board board = new Board();
         System.out.println("Tudilu");
         printBoard();
 
     }
+
+     */
 }
