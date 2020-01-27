@@ -34,19 +34,22 @@ public class Square {
 
     public void setCoordinatesOfPiece(Coordinate coordinates) {
         if (!isEmpty()) {
-            piece.coordinate.setJ(coordinates.getJ());
-            piece.coordinate.setI(coordinates.getI());
+            piece.coordinate.setY(coordinates.getY());
+            piece.coordinate.setX(coordinates.getX());
         }
     }
 
     public String toString() {
         if (isEmpty()) {
-            return "_  ";
+            if (isThreatened) {
+                return "_     " + " T";
+            }
+            return "_     ";
         } else {
             if (isThreatened) {
                 return piece.toString() + " T";
             }
-            return piece.toString();
+            return piece.toString() + "   ";
         }
 
     }

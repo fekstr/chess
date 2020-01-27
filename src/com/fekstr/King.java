@@ -14,14 +14,14 @@ public class King extends ChessPiece {
         ArrayList<Coordinate> validMoves = new ArrayList<>();
         ArrayList<Coordinate> movesToTest = new ArrayList<>();
 
-        movesToTest.add(new Coordinate(this.coordinate.getI() + 1, this.coordinate.getJ()));
-        movesToTest.add(new Coordinate(this.coordinate.getI() - 1, this.coordinate.getJ()));
-        movesToTest.add(new Coordinate(this.coordinate.getI(), this.coordinate.getJ() + 1));
-        movesToTest.add(new Coordinate(this.coordinate.getI(), this.coordinate.getJ() - 1));
-        movesToTest.add(new Coordinate(this.coordinate.getI() + 1, this.coordinate.getJ() + 1));
-        movesToTest.add(new Coordinate(this.coordinate.getI() - 1, this.coordinate.getJ() + 1));
-        movesToTest.add(new Coordinate(this.coordinate.getI() + 1, this.coordinate.getJ() - 1));
-        movesToTest.add(new Coordinate(this.coordinate.getI() - 1, this.coordinate.getJ() - 1));
+        movesToTest.add(new Coordinate(this.coordinate.getX() + 1, this.coordinate.getY()));
+        movesToTest.add(new Coordinate(this.coordinate.getX() - 1, this.coordinate.getY()));
+        movesToTest.add(new Coordinate(this.coordinate.getX(), this.coordinate.getY() + 1));
+        movesToTest.add(new Coordinate(this.coordinate.getX(), this.coordinate.getY() - 1));
+        movesToTest.add(new Coordinate(this.coordinate.getX() + 1, this.coordinate.getY() + 1));
+        movesToTest.add(new Coordinate(this.coordinate.getX() - 1, this.coordinate.getY() + 1));
+        movesToTest.add(new Coordinate(this.coordinate.getX() + 1, this.coordinate.getY() - 1));
+        movesToTest.add(new Coordinate(this.coordinate.getX() - 1, this.coordinate.getY() - 1));
 
 
         for (Coordinate move: movesToTest) {
@@ -46,14 +46,23 @@ public class King extends ChessPiece {
 
 
     public String toString() {
-        return "K " + coordinate.getI() + coordinate.getJ();
+        return "K " + coordinate.getX() + coordinate.getY();
 
     }
 
 
 
     ArrayList<Coordinate> getThreatenedSquares() {
-        return validMoves;
+        ArrayList<Coordinate> movesToTest = new ArrayList<>();
+        movesToTest.add(new Coordinate(this.coordinate.getX() + 1, this.coordinate.getY()));
+        movesToTest.add(new Coordinate(this.coordinate.getX() - 1, this.coordinate.getY()));
+        movesToTest.add(new Coordinate(this.coordinate.getX(), this.coordinate.getY() + 1));
+        movesToTest.add(new Coordinate(this.coordinate.getX(), this.coordinate.getY() - 1));
+        movesToTest.add(new Coordinate(this.coordinate.getX() + 1, this.coordinate.getY() + 1));
+        movesToTest.add(new Coordinate(this.coordinate.getX() - 1, this.coordinate.getY() + 1));
+        movesToTest.add(new Coordinate(this.coordinate.getX() + 1, this.coordinate.getY() - 1));
+        movesToTest.add(new Coordinate(this.coordinate.getX() - 1, this.coordinate.getY() - 1));
+        return movesToTest;
 
     }
 }
