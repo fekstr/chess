@@ -1,25 +1,27 @@
 package com.fekstr.ui;
 import com.fekstr.Board;
+import com.fekstr.Coordinate;
 import com.fekstr.Square;
 
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class BoardUI extends JFrame {
 
     private JPanel mainPanel;
     private JPanel chessPanel;
     private JPanel controlPanel;
-    private Board gameState;
-
+    private Board board;
+    private static SquareUI[][] uiSquares = new SquareUI[8][8];
 
     BoardUI() {
         initialize();
     }
 
     private final void initialize() {
-        gameState = new Board();
+        board = new Board();
 
         System.out.println("Init..");
         mainPanel = new JPanel();
@@ -51,8 +53,9 @@ public class BoardUI extends JFrame {
                 } else {
                     clr = Color.decode("#D18B47");
                 }
-                Square square = gameState.getSquare(x,y);
+                Square square = board.getSquare(x,y);
                 SquareUI squareui = new SquareUI(square,clr);
+                uiSquares[x][y] = squareui;
                 chessPanel.add(squareui);
 
             }
@@ -83,6 +86,18 @@ public class BoardUI extends JFrame {
     public void renderBoard() {
 
     }
+
+    private static SquareUI getUISquare(Coordinate coordinate) {
+        return uiSquares[coordinate.getX()][coordinate.getY()];
+    }
+
+    public static void highlightValidMoves(ArrayList<Coordinate> validMoves) {
+        for (Coordinate c: validMoves) {
+            SquareUI square = getUISquare(c);
+            square.highlightGreen();
+        }
+    }
+
     public static void main(String[] args) {
         BoardUI app = new BoardUI();
     }

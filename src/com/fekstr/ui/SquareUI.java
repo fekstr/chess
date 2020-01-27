@@ -55,13 +55,27 @@ public class SquareUI extends JButton implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        System.out.println(square.getPiece());
-        highlightSquares();
+        Coordinate c = square.getCoordinate();
+        ArrayList<Coordinate> validMoves = square.getValidMoves();
+        BoardUI.highlightValidMoves(validMoves);
+
+        for (Coordinate cc: validMoves) {
+            System.out.println(cc);
+        }
+
+
+//        System.out.println(square.getCoordinate());
+//        System.out.println(square.getPiece());
+//        highlightSquares();
 
     }
 
     private Square getSquare() {
         return this.square;
+    }
+
+    public void highlightGreen() {
+        setBackground(Color.GREEN);
     }
 
     private void highlight() {
@@ -77,6 +91,8 @@ public class SquareUI extends JButton implements ActionListener {
         highlight();
 
         //possibleMoves = this.piece.showValidMoves();
+        //System.out.println(possibleMoves);
+
         /*
         for (SquareUI s: squareuiList) {
             for (Coordinate c: possibleMoves) {
