@@ -154,7 +154,7 @@ public class Board {
 
 
     public static boolean checkIfSquareIsEmpty(Coordinate coordinates) {
-        return getSquare(coordinates.getY(), coordinates.getX()).isEmpty();
+        return getSquare(coordinates.getX(), coordinates.getY()).isEmpty();
     }
 
     public static boolean squareContainsOwnPiece(Coordinate move) {
@@ -176,19 +176,7 @@ public class Board {
         }
 
     }
-    /*
-    public static void flipHorizontally() {
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 8/2; x++) {
-                Square tmp = getSquare(y, 8-x-1);
-                getSquare(x, y).setCoordinate(new Coordinate(y, 8-x-1));
-                gameState[y][8-x-1] = getSquare(y, x);
-                tmp.setCoordinate(new Coordinate(y,x));
-                gameState[y][x] = tmp;
-            }
-        }
-    }
-    */
+
     private static void flipHorizontally() {
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8/2; x++) {
