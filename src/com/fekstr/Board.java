@@ -76,7 +76,7 @@ public class Board {
 
         currentSquare = getSquare(0, 0);
         currentSquare.put(new Rook(forPlayer, currentSquare));
-        
+
     }
 
 

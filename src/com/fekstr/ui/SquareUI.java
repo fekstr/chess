@@ -2,11 +2,17 @@ package com.fekstr.ui;
 
 import com.fekstr.*;
 
-import javax.swing.JButton;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import javax.swing.border.LineBorder;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class SquareUI extends JButton implements ActionListener {
@@ -21,6 +27,7 @@ public class SquareUI extends JButton implements ActionListener {
 
 
     SquareUI(Square square, Color color) {
+        //super(new ImageIcon(Class.class.getResource("./img/Chess_rlt60.png")));
         this.backgroundColor = color;
         //this.coordinate = coordinate;
         this.square = square;
@@ -31,6 +38,8 @@ public class SquareUI extends JButton implements ActionListener {
         setOpaque(true);
         setBorderPainted(true);
         addActionListener(this);
+        //setIcon(new ImageIcon(Class.class.getResource("./img/Chess_rlt60.png")));
+
 
         squareuiList.add(this);
 
@@ -143,6 +152,41 @@ public class SquareUI extends JButton implements ActionListener {
 
     private void highlightSquares() {
         highlight();
+    }
+
+    private void setImage(File imgFile) {
+        try {
+            Image img = ImageIO.read(imgFile);
+            setIcon(new ImageIcon(img));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void setPieceImage() {
+        if (!square.isEmpty()) {
+            ChessPiece chessPiece = square.getPiece();
+            switch (chessPiece.getType()) {
+                case BISHOP:
+                    break;
+                case KING:
+                    break;
+                case KNIGHT:
+                    break;
+                case PAWN:
+                    break;
+                case QUEEN:
+                    break;
+                case ROOK:
+                    break;
+            }
+            File imageCheck = new File("./img/Chess_rlt60.png");
+
+
+        }
+
+
+
+
 
 
     }

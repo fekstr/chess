@@ -86,7 +86,6 @@ public class Rook extends ChessPiece {
 
     ArrayList<Coordinate> getThreatenedSquares() {
         ArrayList<Coordinate> movesToTest = getMovesToTest();
-        System.out.println(movesToTest);
         return movesToTest;
 
     }
