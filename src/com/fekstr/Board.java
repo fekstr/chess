@@ -25,9 +25,14 @@ public class Board {
         isCurrentlyCheck = false;
         //TODO: Place pieces correctly
         for (int i = 0; i < 8; i++) {
-            Square currentSquare = getSquare(0, i);
-            currentSquare.put(new Pawn(Player.BLACK, new Coordinate(i, 0)));
+            Square currentSquare = getSquare(1, i);
+            currentSquare.put(new Pawn(Player.BLACK, new Coordinate(i, 1)));
+            currentSquare.getPiece().computeValidMoves();
         }
+        Square currentSquare = getSquare(0, 4);
+        currentSquare.put(new King(Player.BLACK, new Coordinate(4, 0)));
+        currentSquare.getPiece().computeValidMoves();
+        getThreatenedSquares();
     }
 
     private static Square getSquare(int row, int col) {
@@ -40,8 +45,11 @@ public class Board {
                 Square currentSquare = getSquare(i, j);
                 ChessPiece currentPiece = currentSquare.getPiece();
                 // only get threatening squares if they are threatened by other player
-                if (currentPiece.color != currentPlayer) {
+                if (!currentSquare.isEmpty() && currentPiece.color != currentPlayer) {
                     ArrayList<Coordinate> listOfThreatenedSquares = currentPiece.getThreatenedSquares();
+                    System.out.println("Hej");
+                    System.out.println(i);
+                    System.out.println(listOfThreatenedSquares);
                     for (Coordinate coordinate : listOfThreatenedSquares) {
                         getSquare(coordinate.getI(), coordinate.getJ()).setThreatened(true);
                     }
@@ -76,12 +84,10 @@ public class Board {
                 Square currentSquare = getSquare(j,i);
                 ChessPiece currentPiece = currentSquare.getPiece();
                 //TODO: Make King Piece
-                /*
                 if(currentPiece instanceof King && currentPiece.color == currentPlayer && currentSquare.isThreatened) {
                     isCurrentlyCheck = true;
+                    return true;
                 }
-                */
-
             }
         }
 
@@ -111,7 +117,7 @@ public class Board {
     }
 
     public static boolean isOutsideBoard(Coordinate coordinate) {
-        return coordinate.getI() >= 8 ||coordinate.getJ() >= 8;
+        return coordinate.getI() >= 8 ||coordinate.getJ() >= 8 || coordinate.getI() < 0 || coordinate.getJ() < 0;
     }
 
 
@@ -159,9 +165,11 @@ public class Board {
                 .replaceAll("[\\[\\]]", " "));
         System.out.println("\n");
     }
+
     public static void main(String[] args) {
         Board board = new Board();
-        System.out.println("Tudilu");
+        printBoard();
+        flipHorizontally();
         printBoard();
 
     }

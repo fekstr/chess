@@ -43,6 +43,9 @@ public class Square {
         if (isEmpty()) {
             return "_  ";
         } else {
+            if (isThreatened) {
+                return piece.toString() + " T";
+            }
             return piece.toString();
         }
 

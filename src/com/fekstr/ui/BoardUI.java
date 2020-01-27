@@ -8,7 +8,7 @@ public class BoardUI extends JFrame {
     private JPanel mainPanel;
     private JPanel chessPanel;
     private JPanel controlPanel;
-    private Board gameState;
+
 
     BoardUI() {
         initialize();
