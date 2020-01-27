@@ -12,32 +12,38 @@ public class Pawn extends ChessPiece {
         ArrayList<Coordinate> validMoves = new ArrayList<>();
         ArrayList<Coordinate> movesToTest = new ArrayList<>();
 
-        movesToTest.add(new Coordinate(this.coordinate.getI() + 1, this.coordinate.getJ()));
 
-        if (Board.squareContainsEnemyPiece(new Coordinate(this.coordinate.getI() + 1, this.coordinate.getJ() + 1)))
-            movesToTest.add(new Coordinate(this.coordinate.getI() + 1, this.coordinate.getJ() + 1));
+        // One step forward
+        Coordinate t1 = new Coordinate(this.coordinate.getI() + 1, this.coordinate.getJ());
+        if (!Board.isOutsideBoard(t1) && Board.checkIfSquareIsEmpty(t1))
+            movesToTest.add(t1);
 
-        if (Board.squareContainsEnemyPiece(new Coordinate(this.coordinate.getI() + 1, this.coordinate.getJ() - 1)))
-            movesToTest.add(new Coordinate(this.coordinate.getI() + 1, this.coordinate.getJ() - 1));
+        // Two steps forward
+        Coordinate t2 = new Coordinate(this.coordinate.getI() + 2, this.coordinate.getJ());
+        if (!Board.isOutsideBoard(t2) && this.coordinate.getI() == 1 && Board.checkIfSquareIsEmpty(t2))
+            movesToTest.add(t2);
 
-        if (this.coordinate.getI() == 1) {
-            movesToTest.add(new Coordinate(this.coordinate.getI() + 2, this.coordinate.getJ()));
-        }
+        // Step forward and right
+        Coordinate t3 = new Coordinate(this.coordinate.getI() + 1, this.coordinate.getJ() + 1);
+        if (!Board.isOutsideBoard(t3) && Board.squareContainsEnemyPiece(t3))
+            movesToTest.add(t3);
+
+        // Step forward and left
+        Coordinate t4 = new Coordinate(this.coordinate.getI() + 1, this.coordinate.getJ() - 1);
+        if (!Board.isOutsideBoard(t4) && Board.squareContainsEnemyPiece(t4))
+            movesToTest.add(t4);
+
 
         for (Coordinate move: movesToTest) {
-            if (!Board.isOutsideBoard(move)
-                    && !Board.squareContainsOwnPiece(move)
-                    && !Board.willCreateCheck(this.coordinate, move)
-                ) {
+            if (!Board.squareContainsOwnPiece(move) && !Board.willCreateCheck(this.coordinate, move))
                 validMoves.add(move);
-            }
         }
 
         this.validMoves = validMoves;
     }
 
     void showValidMoves(Coordinate toCoordinate) {
-        // BoardUI.highlightSquares(validMoves)
+        // BoardUI.highlightSquares(this.validMoves)
     }
 
     boolean isValidMove(Coordinate toCoordinate) {
