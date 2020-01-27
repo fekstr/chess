@@ -20,6 +20,10 @@ public class Square {
         return coordinate;
     }
 
+    public void setCoordinate(Coordinate coordinate) {
+        this.coordinate = coordinate;
+    }
+
     public ArrayList<Coordinate> getValidMoves() {
         return piece.getValidMoves();
     }
@@ -30,6 +34,7 @@ public class Square {
 
     public void put(ChessPiece p) {
         piece = p;
+        p.setCurrentSquare(this);
     }
 
     public void clear() {
@@ -44,12 +49,6 @@ public class Square {
         isThreatened = _isThreatened;
     }
 
-    public void setCoordinatesOfPiece(Coordinate coordinates) {
-        if (!isEmpty()) {
-            piece.coordinate.setY(coordinates.getY());
-            piece.coordinate.setX(coordinates.getX());
-        }
-    }
 
     public String toString() {
         if (isEmpty()) {

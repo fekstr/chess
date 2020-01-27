@@ -49,9 +49,9 @@ public class BoardUI extends JFrame {
         for (int y = 7; y >= 0; y--) {
             for (int x = 0; x < 8; x++) {
                 if ((x + y) % 2 == 0) {
-                    clr = Color.decode("#FFCE9E");
-                } else {
                     clr = Color.decode("#D18B47");
+                } else {
+                    clr = Color.decode("#FFCE9E");
                 }
                 Square square = board.getSquare(x,y);
                 SquareUI squareui = new SquareUI(square,clr);
