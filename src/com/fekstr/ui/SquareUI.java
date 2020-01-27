@@ -36,10 +36,12 @@ public class SquareUI extends JButton implements ActionListener {
         setBorder(new LineBorder(Color.WHITE, 0));
         setBackground(this.backgroundColor);
         setOpaque(true);
+
         setBorderPainted(true);
         addActionListener(this);
         //setIcon(new ImageIcon(Class.class.getResource("./img/Chess_rlt60.png")));
-
+        setPieceImage();
+        //setHorizontalAlignment(SwingConstants.LEFT);
 
         squareuiList.add(this);
 
@@ -156,10 +158,32 @@ public class SquareUI extends JButton implements ActionListener {
         highlight();
     }
 
+    private ImageIcon getScaledIcon(final Image image, final double scale)
+    {
+        ImageIcon scaledIcon = new ImageIcon(image)
+        {
+            public int getIconWidth()
+            {
+                return (int)(image.getWidth(null) * scale);
+            }
+
+            public int getIconHeight()
+            {
+                return (int)(image.getHeight(null) * scale);
+            }
+
+            public void paintIcon(Component c, Graphics g, int x, int y)
+            {
+                g.drawImage(image, x, y, getIconWidth(), getIconHeight(), c);
+            }
+        };
+        return scaledIcon;
+    }
     private void setImage(File imgFile) {
         try {
             Image img = ImageIO.read(imgFile);
             setIcon(new ImageIcon(img));
+            //setIcon(getScaledIcon(img, 0.8));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -167,21 +191,55 @@ public class SquareUI extends JButton implements ActionListener {
     private void setPieceImage() {
         if (!square.isEmpty()) {
             ChessPiece chessPiece = square.getPiece();
+            File imgFile = new File("./img/Chess_rlt60.png");
             switch (chessPiece.getType()) {
                 case BISHOP:
+                    if (square.getPiece().getColor() == Player.BLACK) {
+                        imgFile = new File("./img/Chess_bdt60.png");
+                    } else {
+                        imgFile = new File("./img/Chess_blt60.png");
+                    }
+
                     break;
                 case KING:
+                    if (square.getPiece().getColor() == Player.BLACK) {
+                        imgFile = new File("./img/Chess_kdt60.png");
+                    } else {
+                        imgFile = new File("./img/Chess_klt60.png");
+                    }
                     break;
                 case KNIGHT:
+                    if (square.getPiece().getColor() == Player.BLACK) {
+                        imgFile = new File("./img/Chess_ndt60.png");
+                    } else {
+                        imgFile = new File("./img/Chess_nlt60.png");
+                    }
                     break;
                 case PAWN:
+                    if (square.getPiece().getColor() == Player.BLACK) {
+                        imgFile = new File("./img/Chess_pdt60.png");
+                    } else {
+                        imgFile = new File("./img/Chess_plt60.png");
+                    }
                     break;
                 case QUEEN:
+                    if (square.getPiece().getColor() == Player.BLACK) {
+                        imgFile = new File("./img/Chess_qdt60.png");
+                    } else {
+                        imgFile = new File("./img/Chess_qlt60.png");
+                    }
                     break;
                 case ROOK:
+                    if (square.getPiece().getColor() == Player.BLACK) {
+                        imgFile = new File("./img/Chess_rdt60.png");
+                    } else {
+                        imgFile = new File("./img/Chess_rlt60.png");
+                    }
                     break;
+
             }
-            File imageCheck = new File("./img/Chess_rlt60.png");
+            setImage(imgFile);
+            //File imageCheck = new File("./img/Chess_rlt60.png");
 
 
         }
