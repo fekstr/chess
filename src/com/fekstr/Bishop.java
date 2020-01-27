@@ -61,7 +61,7 @@ public class Bishop extends ChessPiece {
         for (Coordinate move: movesToTest) {
             if (!Board.isOutsideBoard(move)
                     && !Board.squareContainsOwnPiece(move)
-                    && !Board.willCreateCheck(coordinate, move)
+                    //&& !Board.willCreateCheck(coordinate, move)
                     ) {
                 validMoves.add(move);
             }
