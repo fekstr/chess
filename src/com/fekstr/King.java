@@ -24,7 +24,6 @@ public class King extends ChessPiece {
         movesToTest.add(new Coordinate(coordinate.getX() + 1, coordinate.getY() - 1));
         movesToTest.add(new Coordinate(coordinate.getX() - 1, coordinate.getY() - 1));
 
-
         for (Coordinate move: movesToTest) {
             if (!Board.isOutsideBoard(move)
                     && !Board.squareContainsOwnPiece(move)

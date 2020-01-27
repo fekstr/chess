@@ -1,9 +1,6 @@
 package com.fekstr.ui;
 
-import com.fekstr.ChessPiece;
-import com.fekstr.Coordinate;
-import com.fekstr.Player;
-import com.fekstr.Square;
+import com.fekstr.*;
 
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
@@ -61,20 +58,30 @@ public class SquareUI extends JButton implements ActionListener {
         if(!this.square.isEmpty() || this.isHighlighted() ) {
 
             Coordinate c = square.getCoordinate();
-            if(activePlay && !this.square.isEmpty()) {
-                // ActivePlay and is a piece -> new Play
-                BoardUI.resetHighlight();
-                activePlay = !activePlay;
-            }
+
 
             if(!this.isHighlighted() && !activePlay) {
-                activePlay = !activePlay;
+                activePlay = true;
                 ArrayList<Coordinate> validMoves = square.getValidMoves();
                 BoardUI.highlightValidMoves(validMoves);
                 for (Coordinate cc : validMoves) {
                     System.out.println(cc);
                 }
+
+                BoardUI.setCurrentCoordinate(c);
             }
+
+            else if (activePlay && BoardUI.getCurrentCoordinate() != null) {
+                System.out.println("Triggered");
+                Board.handleMove(BoardUI.getCurrentCoordinate(), c);
+                BoardUI.setCurrentCoordinate(null);
+
+                BoardUI.renderBoard();
+
+//                BoardUI.resetHighlight();
+                activePlay = false;
+            }
+
 
             System.out.println("that worked");
         }
