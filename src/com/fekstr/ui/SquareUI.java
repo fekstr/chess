@@ -71,7 +71,7 @@ public class SquareUI extends JButton implements ActionListener {
                 BoardUI.setCurrentCoordinate(c);
             }
 
-            else if (activePlay && BoardUI.getCurrentCoordinate() != null) {
+            else if (activePlay && BoardUI.getCurrentCoordinate() != null && this.isHighlighted()) {
                 System.out.println("Triggered");
                 Board.handleMove(BoardUI.getCurrentCoordinate(), c);
                 BoardUI.setCurrentCoordinate(null);

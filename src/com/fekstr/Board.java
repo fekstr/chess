@@ -140,6 +140,7 @@ public class Board {
         currentSquare.clear();
         switchPlayer();
         flip();
+        getThreatenedSquares();
     }
 
 
@@ -206,6 +207,10 @@ public class Board {
     private static void flip() {
         flipHorizontally();
         flipVertically();
+    }
+
+    public static Player getCurrentPlayer() {
+        return currentPlayer;
     }
 
 
